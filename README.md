@@ -50,8 +50,7 @@
     
 
 ## 📄 Лицензия 
-
-MIT — свободно используйте для обучения, практики и развития!
+[MIT](LICENSE)
 
 A curated collection of resources for frontend interview prep, coding practice on courses Front-End and React in RS School community.
 Available in both Russian and English.
@@ -103,4 +102,4 @@ Suggestions, questions, and new challenges are welcome!
 Feel free to send a pull request or open an issue.
 ## 📄 License
 
-MIT — free to use for learning and career growth!
+[MIT](LICENSE)
