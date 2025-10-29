@@ -8,27 +8,17 @@
 
 ## 🌐 Навигация 
 
-    - Теория, задачи, вопросы
-        
-    - Ссылки на дополнительные материалы
-        
-    - Практика кодинга
-        
 ## 🗂️ Структура 
 
 Пример организации папок и файлов:
 
 ```md
 /ru/
-    theory/
     coding-practice/
-    interview-questions/
-    links.md
+    interview/
 /en/
-    theory/
     coding-practice/
-    interview-questions/
-    links.md
+    interview/
 
 ```
 
@@ -62,14 +52,6 @@ Perfect for mentoring, self-preparation, or group practice.
 
 Each section includes:
 
-- Theory
-    
-- Coding practice
-    
-- Interview questions
-    
-- Useful links
-    
 ## 🗂️ Structure
 
 Example folder layout:
@@ -78,13 +60,11 @@ Example folder layout:
 /ru/
     theory/
     coding-practice/
-    interview-questions/
-    links.md
+    interview/
 /en/
     theory/
     coding-practice/
-    interview-questions/
-    links.md
+    interview/
 
 ```
 
