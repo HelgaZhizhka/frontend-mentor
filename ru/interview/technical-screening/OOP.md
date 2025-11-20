@@ -416,7 +416,7 @@ console.log(savings.balance);
 
 ООП в JavaScript базируется на прототипах, но с современным синтаксисом `class` принципы **инкапсуляции**, **наследования**, **полиморфизма** и **абстракции** реализуются так же удобно, как в классических языках.
 ## **Материалы для изучения**
-[https://github.com/rolling-scopes-school/tasks/tree/master/stage1/modules/oop-basics](https://github.com/rolling-scopes-school/tasks/tree/master/stage1/modules/oop-basics)
+[https://github.com/rolling-scopes-school/tasks/tree/master/stage1/modules/oop-basics](https://github.com/rolling-scopes-school/tasks/tree/master/stage1/modules/oop-basics) - тема в **RS School**
 **Книги:**
 - JavaScript. Подробное руководство (David Flanagan) — главы об объектах и классах
 - Learning JavaScript Design Patterns (Addy Osmani) — паттерны ООП
