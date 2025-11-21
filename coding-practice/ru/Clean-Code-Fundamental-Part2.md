@@ -499,7 +499,7 @@ import { useAuth } from '@/hooks/useAuth';
 
 import styles from './styles.module.css';
 ```
-Используйте eslint плагин для форматирования импортов import/order. 
+Используйте eslint плагин для форматирования импортов eslint-plugin-import. 
 
 **Избегать barrel exports где не нужно:**
 
