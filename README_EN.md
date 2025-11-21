@@ -1,4 +1,3 @@
-
 A curated collection of resources for frontend interview prep, coding practice on courses **Front-End** and **React** in **RS School community**.
 Available in both Russian and English.
 ## 📚 About
@@ -8,6 +7,8 @@ Perfect for mentoring, self-preparation, or group practice.
 
 ## 📂 Navigation
 
+- [coding-practice](./coding-practice/ru/index.md) - clean code practices, code examples, code review analysis
+- [interview](./interview/ru/index.md) - interviews: theory, questions, tasks
 
 ## 🎯 Audience
 
