@@ -27,4 +27,3 @@
     
 ## 📄 Лицензия 
 [MIT](LICENSE)
-[README_EN](README_EN)
