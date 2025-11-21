@@ -431,12 +431,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // 2. Импорты (внутренние модули)
-import { Button } from '@/components/Button';
+import { Button } from '@/components/button';
 import { useAuth } from '@/hooks/useAuth';
 import { formatDate } from '@/utils/date';
 
 // 3. Импорты (стили)
-import './UserProfile.css';
+import styles from './styles.module.css';
 
 // 4. Типы и интерфейсы
 interface UserProfileProps {
@@ -474,7 +474,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 // 3. Алиасы проекта (@/)
-import { Button } from '@/components/Button';
+import { Button } from '@/components/button';
 
 import { useAuth } from '@/hooks/useAuth';
 
@@ -483,8 +483,8 @@ import { formatDate } from '../../utils/date';
 import { UserType } from '../types';
 
 // 5. Относительные импорты (текущая директория)
-import { UserCard } from './UserCard';
-import './UserProfile.css';
+import { UserCard } from './user-card';
+import styles from './styles.module.css';
 ```
 
 **Группировка с пустыми строками:**
@@ -494,10 +494,10 @@ import './UserProfile.css';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@/components/Button';
+import { Button } from '@/components/button';
 import { useAuth } from '@/hooks/useAuth';
 
-import './UserProfile.css';
+import styles from './styles.module.css';
 ```
 Используйте eslint плагин для форматирования импортов import/order. 
 
@@ -506,17 +506,17 @@ import './UserProfile.css';
 ```typescript
 // ❌ Плохо — barrel export для всего
 // components/index.ts
-export * from './Button';
-export * from './Input';
-export * from './Card';
+export * from './button';
+export * from './input';
+export * from './card';
 // ... 50+ компонентов
 
 // Проблема: импортируется весь bundle
 import { Button } from '@/components'; // Загружает ВСЁ
 
 // ✅ Хорошо — прямые импорты
-import { Button } from '@/components/Button';
-import { Input } from '@/components/Input';
+import { Button } from '@/components/button';
+import { Input } from '@/components/input';
 ```
 
 **Когда barrel exports полезны:**

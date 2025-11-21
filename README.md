@@ -14,20 +14,6 @@
 
 ## 📂 Навигация
 
-Проект структурирован по языкам: русская версия в папке `ru/` и планируется английская версия в папке `en/`. В каждой версии будут две основные папки: `coding-practice/` (практики чистого кода и код-ревью) и `interview/` (подготовка к интервью, включая техническое скрининг и вопросы по различным темам).
-
-### Текущая структура:
-
-- **ru/** - Русская версия
-  - [`coding-practice/`](./ru/coding-practice/index.md) (Код-ревью и практики)
-    - [Clean-Code-Fundamental-Part1.md](./ru/coding-practice/Clean-Code-Fundamental-Part1.md)
-    - [Clean-Code-Fundamentals-Part2.md](./ru/coding-practice/Clean-Code-Fundamentals-Part2.md)
-    - [Check-List.md](./ru/coding-practice/Check-List.md)
-  - `interview/` (Интервью)
-    - `technical-screening/` (Техническое скрининг)
-      - [Data-Structures.md](./ru/interview/technical-screening/Data-Structures.md)
-      - [OOP.md](./ru/interview/technical-screening/OOP.md)
-
 ### Планируемая структура для английской версии (en/):
 - Аналогичная структура с переводами материалов на английский язык.
 

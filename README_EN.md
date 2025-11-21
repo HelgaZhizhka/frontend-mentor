@@ -8,21 +8,6 @@ Perfect for mentoring, self-preparation, or group practice.
 
 ## 📂 Navigation
 
-Project is structured by languages: Russian version in `ru/` and English version in `en/`. Each version has two main folders: `coding-practice/` (code review and practices) and `interview/` (interview preparation, including technical screening and questions on various topics).
-
-### Current structure:
-
-- **ru/** - Russian version
-  - `coding-practice/` (Code review and practices)
-    - Clean-Code-Fundamental-Part1.md
-    - Clean-Code-Fundamentals-Part2.md
-  - `interview/` (Interview preparation)
-    - `technical-screening/` (Technical screening)
-      - Data-Structures.md
-      - OOP.md
-
-### Planned structure for English version (en/):
-- Similar structure with translations to English.
 
 ## 🎯 Audience
 
