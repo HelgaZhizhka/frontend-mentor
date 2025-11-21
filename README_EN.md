@@ -2,8 +2,9 @@ A curated collection of resources for frontend interview prep, coding practice o
 Available in both Russian and English.
 ## 📚 About
 
-This repository includes exercises, coding problems, interview questions, and theory collected from my experience as a student and mentor at **RS School**.  
-Perfect for mentoring, self-preparation, or group practice.
+This repository is a collection of best practices code, problems, theories and typical questions in interviews for students at **Front-End** and **React** courses in the **RS School** community. All collected carefully and with care on the basis of own experience of learning, interviews, responses from mentors and also experience of their teaching: conducting code reviews and interviews.  
+
+The materials are structured by topics. Presented in two versions: in Russian and English.
 
 ## 📂 Navigation
 
