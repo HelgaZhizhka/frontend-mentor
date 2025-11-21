@@ -6,29 +6,32 @@
 Этот репозиторий — подборка лучших практик кода, задач, теории и типовых вопросов на собеседованиях для студентов на курсах **Front-End** и **React** в сообществе **RS School**. Все собранно бережно и с заботой на основе собственного опыта обучения и менторства.  
 Материалы структурированы по темам и языкам. 
 
-## 🌐 Навигация 
-
-## 🗂️ Структура 
-
-Пример организации папок и файлов:
-
-```md
-/ru/
-    coding-practice/
-    interview/
-/en/
-    coding-practice/
-    interview/
-
-```
-
 ## 🎓 Для кого 
 
 - 🎯 Студенты курсов **Front-End** и **React** в **RS School**. 
 - 👩‍💻 Менторы **RS School**. 
 - 👫 Все, кто готовится к собеседованиям как front-end developer. 
 
-## 🤝 Как внести вклад 
+## 📂 Навигация
+
+Проект структурирован по языкам: русская версия в папке `ru/` и планируется английская версия в папке `en/`. В каждой версии будут две основные папки: `coding-practice/` (практики чистого кода и код-ревью) и `interview/` (подготовка к интервью, включая техническое скрининг и вопросы по различным темам).
+
+### Текущая структура:
+
+- **ru/** - Русская версия
+  - [`coding-practice/`](./ru/coding-practice/index.md) (Код-ревью и практики)
+    - [Clean-Code-Fundamental-Part1.md](./ru/coding-practice/Clean-Code-Fundamental-Part1.md)
+    - [Clean-Code-Fundamentals-Part2.md](./ru/coding-practice/Clean-Code-Fundamentals-Part2.md)
+    - [Check-List.md](./ru/coding-practice/Check-List.md)
+  - `interview/` (Интервью)
+    - `technical-screening/` (Техническое скрининг)
+      - [Data-Structures.md](./ru/interview/technical-screening/Data-Structures.md)
+      - [OOP.md](./ru/interview/technical-screening/OOP.md)
+
+### Планируемая структура для английской версии (en/):
+- Аналогичная структура с переводами материалов на английский язык.
+
+## 🤝 Как внести вклад
 
 Буду рада идеям, задачам и вопросам от сообщества!
 - Можно отправить **pull request** с добавлением нового файла или правкой существующего.
