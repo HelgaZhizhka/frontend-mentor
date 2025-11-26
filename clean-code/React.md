@@ -5,6 +5,7 @@
 ### 1.1 Использование alias для импортов
 
 **Проблема:** Длинные относительные пути (`../../../`) усложняют код и навигацию.
+
 **❌ Плохо:**
 
 ```typescript
@@ -246,8 +247,10 @@ const UserCard = ({ user }: { user: User }): React.JSX.Element => {
 }
 ```
 ### 2.2 Типизация компонентов
-**❌ Неявная типизация children:**
+**Использование PropsWithChildren:**
 ```typescript
+import { PropsWithChildren } from 'react';
+
 const Container = ({
   title,
   children,
@@ -260,11 +263,18 @@ const Container = ({
   )
 }
 ```
-**✅ Рекомендуемая практика — явная типизация `children`:**
+
+Преимущества:
+  - Меньше кода (не нужно вручную типизировать children)
+  - Официальный utility type от React
+  - Явно показывает, что компонент принимает children
+  - children автоматически типизируется как ReactNode | undefined
+
+**Явная типизация `children`:**
 ```typescript
 type ContainerProps = {
   title: string
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 const Container = ({ title, children }: ContainerProps): React.JSX.Element => {
@@ -276,6 +286,12 @@ const Container = ({ title, children }: ContainerProps): React.JSX.Element => {
   )
 }
 ```
+
+Когда использовать:
+- Нужен контроль над optional/required
+- Нужно сделать children обязательным: children: React.ReactNode (без ?)
+- Явная документация в интерфейсе
+
 **Типы для `children`:**
 ```typescript
 // Любой React элемент
@@ -287,6 +303,8 @@ children: string | number
 // Функция как child
 children: (value: number) => React.ReactNode
 ```
+
+**В React 18+ FC больше не включает children автоматически**
 
 ### 2.3 Использование `React.memo()`
 **Когда использовать:**
@@ -921,6 +939,15 @@ fetchUser()
 - [ ] `React.memo()` где нужно
 - [ ] Большие компоненты разбиты
 - [ ] `displayName` указан для `memo`
+
+### ✅ React и DOM
+
+- [ ] Нет использования `querySelector`, `getElementById`, `getElementsByClassName`
+- [ ] Нет прямых манипуляций с DOM
+- [ ] `useRef` используется только для фокуса, скролла, измерений или сторонних библиотек
+- [ ] Все изменения UI через состояние (`useState`, `useReducer`)
+- [ ] Формы используют controlled components
+- [ ] Условный рендеринг вместо `display: none/block`
 
 ### ✅ Хуки
 

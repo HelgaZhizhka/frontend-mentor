@@ -386,7 +386,7 @@ const input = document.getElementById('myInput') as HTMLInputElement;
 console.log(input.value); // ❌ Ошибка, если `input` = null!
 ```
 **Проблема:** Если элемент не найден, `input` будет `null`, но TypeScript об этом не знает!
-***
+
 ### 4.2 Type Guards (`typeof`, `instanceof`, `is`)
 **Альтернатива – Type Guards делают реальную проверку в рантайме!**
 **1. `typeof` – для примитивных типов (`string`, `number`, `boolean`)**

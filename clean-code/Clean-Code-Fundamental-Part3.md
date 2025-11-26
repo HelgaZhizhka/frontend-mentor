@@ -27,7 +27,7 @@ export const greet = () => {
   console.log(`Hello, ${config.userName}`);
 };
 ```
-***
+
 ### 1.2 Использовать const по умолчанию
 ```typescript
 // ✅ const по умолчанию
@@ -580,4 +580,3 @@ const loadData = async () => {
   return { user, orders };
 };
 ```
-

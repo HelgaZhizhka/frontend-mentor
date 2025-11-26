@@ -10,9 +10,9 @@
 ```javascript
 // ❌ Плохой код
 function calc(a, b, t) {
-  if (t == 1) return a + b;
-  if (t == 2) return a - b;
-  if (t == 3) return a * b;
+  if (t === 1) return a + b;
+  if (t === 2) return a - b;
+  if (t === 3) return a * b;
   return a / b;
 }
 ```
@@ -74,7 +74,7 @@ const currentDate = new Date();
 const userResponse = getData();
 const users = fetchUsers();
 ```
-***
+
 ### 1.2 Переменные
 **Правила:**
 - **camelCase** для обычных переменных
@@ -105,7 +105,7 @@ const process = (n: string): string => n.toUpperCase();
 // ✅ Хорошо — контекст ясен
 const formatUserName = (userName: string): string => userName.toUpperCase();
 ```
-***
+
 ### 1.3 Функции
 **Правила:**
 - **camelCase**
@@ -169,7 +169,7 @@ const onboardNewUser = (user: User): void => {
   logUserActivity(user);
 };
 ```
-***
+
 ### 1.4 Классы и компоненты
 **Правила:**
 - **PascalCase**
@@ -361,7 +361,7 @@ const processOrder = (order: Order): number => {
 - Есть **комментарии** типа "// Validate", "// Calculate" — каждый блок -> отдельная функция
 - Функция делает больше одной вещи
 - Сложно понять с первого взгляда
-***
+
 ### 2.2 Параметры функции
 **Правило:**
 - **0-2 параметра** — идеально
@@ -973,7 +973,7 @@ const getUser = (userId: string): User | null => {
   return database.find(userId) || null;
 };
 ```
-***
+
 ### 4.2 Fail Fast принцип
 **Проверка на входе:**
 ```typescript
