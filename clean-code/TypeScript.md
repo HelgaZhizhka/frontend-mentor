@@ -32,6 +32,7 @@ const result: Promise<Data> = loadData();
 ```
 
 **Настройка запрета `any`:**
+
 **В `tsconfig.json`:**
 ```json
 {
@@ -55,6 +56,7 @@ module.exports = {
 **Правило:**
 - **Используем `unknown` вместо `any`**, если не знаем, какой будет тип
 - **Только через проверку или `as` приводим `unknown` к нужному типу**
+
 **❌ Плохо — `any` отключает проверки TypeScript:**
 ```typescript
 const processData = (data: any) => {
@@ -137,6 +139,7 @@ const processUser = (user: User) => {
 - Предотвращает непреднамеренные типы возврата (TypeScript может выводить неправильные типы)
 - Делает функциональные подписи более ясными для товарищей по команде
 - Помогает TypeScript ловить ошибки на раннем этапе (особенно в асинхронных функциях)
+  
 **❌ Плохо — TypeScript выводит тип, но не всегда корректен:**
 ```typescript
 const getUser = (id: string) => {
@@ -182,6 +185,7 @@ const logMessage = (message: string): void => {
 **Рекомендация:**
 - Если **не нужно расширять типы**, **используем `type`**
 - Более гибкий, можно использовать union types, intersection types
+  
 **✅ Используем `type`, если не надо расширять:**
 ```typescript
 type ButtonProps = {
@@ -229,6 +233,7 @@ type Person = Named & Aged;
 **Рекомендация:**
 - Если **нужно расширять (`extends`)** – лучше **`interface`**
 - В **команде** → **смотрим, что уже используется, и следуем стандарту**
+  
 **✅ Используем `interface`, если нужно `extends`:**
 ```typescript
 interface BaseProps {
@@ -279,6 +284,7 @@ interface Window {
 - Ломает `Object.keys`
 - Не всегда работает как ожидается
 - Занимает больше места в бандле
+  
 **❌ Плохо — `enum` генерирует лишний код в JS:**
 ```typescript
 enum Role {
@@ -341,6 +347,7 @@ const Role = {
 type RoleType = (typeof Role)[keyof typeof Role]; // "admin" | "user"
 ```
 **Теперь `RoleType` будет `"admin" | "user"`, и не будет лишнего кода в JS!**
+
 **Примеры использования:**
 ```typescript
 const ROUTES = {
@@ -380,6 +387,7 @@ const handleStatus = (status: Status) => {
 ### 4.1 Type Assertion (`as`)
 **Проблема:**
 Оператор **type assertion (`as`)** просто **заставляет TypeScript "поверить", что тип корректный**, но **он не делает реальной проверки в рантайме**.
+
 **❌ Плохо — может привести к ошибке:**
 ```typescript
 const input = document.getElementById('myInput') as HTMLInputElement;
@@ -389,6 +397,7 @@ console.log(input.value); // ❌ Ошибка, если `input` = null!
 
 ### 4.2 Type Guards (`typeof`, `instanceof`, `is`)
 **Альтернатива – Type Guards делают реальную проверку в рантайме!**
+
 **1. `typeof` – для примитивных типов (`string`, `number`, `boolean`)**
 ```typescript
 const isNumber = (value: unknown): value is number => 
@@ -401,6 +410,7 @@ if (isNumber(input)) {
 }
 ```
 **Теперь TypeScript проверит тип перед выполнением кода!**
+
 **2. `instanceof` – для классов (`HTMLElement`, `Error`, `Date`)**
 ```typescript
 const input = document.getElementById('myInput');
@@ -441,6 +451,7 @@ if (isUser(data)) {
 }
 ```
 **Теперь TypeScript знает, что `data` – это `User`, и мы можем безопасно работать с ним.**
+
 **Ещё примеры Type Guards:**
 
 ```typescript
