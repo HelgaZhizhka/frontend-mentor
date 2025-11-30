@@ -97,9 +97,7 @@ const getErrorMessage = (error: unknown): string => {
 };
 
 try {
-  throw null;
-  throw "";
-  throw [{ a: [] }];
+  throw "Something went wrong";
 } catch (error: unknown) {
   console.error(getErrorMessage(error));
 }
@@ -114,7 +112,7 @@ try {
 
 ```typescript
 const processUser = (user: object) => {
-  console.log(user.name); // ❌ Ошибка! TS не знает, что есть `name`
+  console.log(user.name); // ❌ Ошибка! TS не знает, что есть `name`: Свойство "name" не существует в типе "object"
 };
 ```
 **✅ Хорошо — `Record<string, string>` или `unknown` + приведение типа:**
@@ -391,7 +389,7 @@ const handleStatus = (status: Status) => {
 **❌ Плохо — может привести к ошибке:**
 ```typescript
 const input = document.getElementById('myInput') as HTMLInputElement;
-console.log(input.value); // ❌ Ошибка, если `input` = null!
+console.log(input.value); // ❌ В runtime здесь будет ошибка, если input = null!
 ```
 **Проблема:** Если элемент не найден, `input` будет `null`, но TypeScript об этом не знает!
 
@@ -467,6 +465,9 @@ const isDefined = <T>(value: T | null | undefined): value is T =>
 const users: (User | null)[] = getUsers();
 const validUsers = users.filter(isDefined); // Type: User[]
 ```
+**Важно помнить:**  
+- Type assertion (`as`) просто "заставляет поверить" TS, но не проверяет тип реально
+- Type guard (как `typeof`, `instanceof`, свои is-функции) реально валидируют тип во время выполнения и защищают от падения приложения
 
 ## 5. Константы и Magic Values
 ### 5.1 Вынос числовых значений
