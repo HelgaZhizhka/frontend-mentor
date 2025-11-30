@@ -103,7 +103,7 @@ import styles from './styles.module.css'
 
 ### 1.3 Структура компонента и импорты: как лучше делать
 
-**Рекомендуемый паттерн (2025):**
+**Рекомендуемый паттерн:**
 
 - Каждый компонент — это папка с именем в формате `kebab-case`.
 - В папке только один главный файл: `index.tsx` (`index.ts` для "чистых" TypeScript-компонентов).
@@ -310,7 +310,8 @@ children: (value: number) => React.ReactNode
 **Когда использовать:**
 - Компонент часто ререндерится с теми же пропсами
 - Компонент тяжёлый (сложные вычисления или большой UI)
-  **✅ С `displayName` для отладки:**
+  
+**✅ С `displayName` для отладки:**
 ```typescript
 const UserCard = ({ user }: { user: User }): React.JSX.Element => {
   return (
@@ -425,6 +426,7 @@ const onChange = ({
 ### 3. Хуки React
 #### 3.1 `useCallback`
 **Когда `useCallback` НУЖЕН:**
+
 **1️⃣ Функция передаётся в дочерний компонент с `React.memo()`:**
 
 ```typescript
@@ -803,7 +805,9 @@ const LoginForm = (): React.JSX.Element => {
 ## 6. Работа с темами
 ### 6.1 Глобальные CSS переменные вместо `useTheme`
 **Проблема:** `useTheme` в каждом компоненте вызывает лишние ререндеры.
+
 **✅ Решение — CSS переменные + атрибут `data-theme`:**
+
 **В `ThemeProvider`:**
 
 ```typescript
@@ -864,12 +868,12 @@ body[data-theme='dark'] {
 const handleClick = () => {
   router.push('/profile')
 }
-;<button onClick={handleClick}>Go to Profile</button>
+<button onClick={handleClick}>Go to Profile</button>
 ```
 **✅ Хорошо — компонент `Link`:**
 ```typescript
 import Link from 'next/link'
-;<Link href="/profile">
+<Link href="/profile">
   <a>Go to Profile</a>
 </Link>
 ```
@@ -887,11 +891,11 @@ import Link from 'next/link'
 **✅ Безопасно — рендерить как текст или использовать библиотеку:**
 ```typescript
 // Вариант 1: как текст
-;<div>{userContent}</div>
+<div>{userContent}</div>
 // Вариант 2: с санитизацией через DOMPurify
 import DOMPurify from 'dompurify'
 const sanitizedHTML = DOMPurify.sanitize(userContent)
-;<div dangerouslySetInnerHTML={{ __html: sanitizedHTML }} />
+<div dangerouslySetInnerHTML={{ __html: sanitizedHTML }} />
 ```
 
 ### 8.2 Всегда добавлять `key` в `map()`
