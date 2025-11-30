@@ -130,6 +130,8 @@ components/
 ```typescript
 // components/card-list/index.tsx
 import type { ReactNode } from 'react'
+
+import { cn } from '@/utils/classnames'
 import styles from './styles.module.css'
 
 export type CardListProps = {
@@ -247,6 +249,8 @@ const UserCard = ({ user }: { user: User }): React.JSX.Element => {
 }
 ```
 ### 2.2 Типизация компонентов
+**В React 18+ FC больше не включает children автоматически**
+
 **Использование PropsWithChildren:**
 ```typescript
 import { PropsWithChildren } from 'react';
@@ -303,8 +307,6 @@ children: string | number
 // Функция как child
 children: (value: number) => React.ReactNode
 ```
-
-**В React 18+ FC больше не включает children автоматически**
 
 ### 2.3 Использование `React.memo()`
 **Когда использовать:**
@@ -803,7 +805,7 @@ const LoginForm = (): React.JSX.Element => {
 ```
 
 ## 6. Работа с темами
-### 6.1 Глобальные CSS переменные вместо `useTheme`
+### 6.1 Глобальные CSS переменные вместо useTheme
 **Проблема:** `useTheme` в каждом компоненте вызывает лишние ререндеры.
 
 **✅ Решение — CSS переменные + атрибут `data-theme`:**
@@ -873,9 +875,7 @@ const handleClick = () => {
 **✅ Хорошо — компонент `Link`:**
 ```typescript
 import Link from 'next/link'
-<Link href="/profile">
-  <a>Go to Profile</a>
-</Link>
+<Link href="/profile">Go to Profile</Link>
 ```
 **Преимущества:**
 - Автоматическая предзагрузка страниц
