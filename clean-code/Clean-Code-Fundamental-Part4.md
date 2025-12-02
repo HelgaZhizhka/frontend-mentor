@@ -1,23 +1,29 @@
 # Продвинутые практики чистого кода
+
 ## Производительность и тестирование
+
 ### 1. Преждевременная оптимизация
+
 > "Premature optimization is the root of all evil" — Donald Knuth
 
 **Правильный подход:**
+
 1. ✅ Сначала **работающий** код
 2. ✅ Потом **чистый** код
 3. ✅ Профилирование (где реально медленно?)
 4. ✅ Оптимизация узких мест
 5. ✅ Измерение результата
 
-
 ### 1.1 Когда оптимизировать
+
 **Признаки необходимости оптимизации:**
+
 - Измеримая проблема (медленный рендер, долгий запрос)
 - Жалобы пользователей
 - Метрики показывают проблему
 
 **Профилирование:**
+
 ```typescript
 // Chrome DevTools Performance
 // React DevTools Profiler
@@ -26,7 +32,9 @@ console.time('fetchUsers');
 await fetchUsers();
 console.timeEnd('fetchUsers'); // fetchUsers: 1234ms
 ```
+
 **Big O сложность:**
+
 ```typescript
 // O(n²) — квадратичная (плохо для больших массивов)
 for (let i = 0; i < arr.length; i++) {
@@ -44,9 +52,10 @@ for (let i = 0; i < arr.length; i++) {
 const item = map.get(key);
 ```
 
-
 ### 1.2 Простые оптимизации
+
 **Кэширование результатов:**
+
 ```typescript
 // Мемоизация дорогой функции
 const cache = new Map<string, User>();
@@ -55,13 +64,15 @@ const getUserById = (id: string): User => {
   if (cache.has(id)) {
     return cache.get(id)!;
   }
-  
+
   const user = database.find(id);
   cache.set(id, user);
   return user;
 };
 ```
+
 **Debounce/Throttle:**
+
 ```typescript
 // Debounce — вызов после паузы
 const debounce = <T extends (...args: unknown[]) => unknown>(
@@ -69,7 +80,7 @@ const debounce = <T extends (...args: unknown[]) => unknown>(
   delay: number
 ): ((...args: Parameters<T>) => void) => {
   let timeoutId: NodeJS.Timeout;
-  
+
   return (...args: Parameters<T>) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn(...args), delay);
@@ -81,7 +92,7 @@ const handleSearch = debounce((query: string) => {
   fetchSearchResults(query);
 }, 300);
 
-  // Throttle — вызов не чаще N мс
+// Throttle — вызов не чаще N мс
 const throttle = <Args extends unknown[], ReturnType>(
   fn: (...args: Args) => ReturnType,
   limit: number
@@ -92,7 +103,7 @@ const throttle = <Args extends unknown[], ReturnType>(
     if (!inThrottle) {
       fn(...args);
       inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+      setTimeout(() => (inThrottle = false), limit);
     }
   };
 };
@@ -102,7 +113,9 @@ const handleScroll = throttle(() => {
   console.log('Scrolling...');
 }, 100);
 ```
+
 **Lazy loading:**
+
 ```typescript
 // Загрузка по требованию
 let heavyModule: typeof import('./heavy-module') | null = null;
@@ -114,7 +127,9 @@ const useHeavyFeature = async () => {
   return heavyModule.doSomething();
 };
 ```
+
 **Избегать лишних вычислений:**
+
 ```typescript
 // ❌ Плохо — вычисляем на каждой итерации
 for (let i = 0; i < arr.length; i++) {
@@ -130,7 +145,9 @@ for (let i = 0; i < arr.length; i++) {
 ```
 
 ## 2. Тестируемость кода
+
 ### 2.1 Что делает код тестируемым
+
 **Чистые функции:**
 
 ```typescript
@@ -141,7 +158,9 @@ test('add', () => {
   expect(add(2, 3)).toBe(5);
 });
 ```
+
 **Dependency Injection:**
+
 ```typescript
 // ❌ Сложно тестировать — жёсткая зависимость
 class UserService {
@@ -163,25 +182,26 @@ class UserService {
 const mockDb = { find: jest.fn() };
 const service = new UserService(mockDb);
 ```
+
 **Малые функции:**
+
 ```typescript
 // ✅ Легко тестировать — маленькие функции
-const validateEmail = (email: string): boolean =>
-  /\S+@\S+\.\S+/.test(email);
+const validateEmail = (email: string): boolean => /\S+@\S+\.\S+/.test(email);
 
-const validatePassword = (password: string): boolean =>
-  password.length >= 8;
+const validatePassword = (password: string): boolean => password.length >= 8;
 
 const validateUser = (user: User): boolean =>
   validateEmail(user.email) && validatePassword(user.password);
 
 // Каждую функцию тестируем отдельно
 ```
+
 **Изоляция side effects:**
+
 ```typescript
 // ✅ Логика отделена от эффектов
-const calculateTotal = (items: Item[]): number =>
-  items.reduce((sum, item) => sum + item.price, 0);
+const calculateTotal = (items: Item[]): number => items.reduce((sum, item) => sum + item.price, 0);
 
 const saveOrder = async (order: Order): Promise<void> => {
   const total = calculateTotal(order.items); // Чистая функция
@@ -195,36 +215,39 @@ test('calculateTotal', () => {
 ```
 
 ### 2.2 Признаки нетестируемого кода
+
 **Глобальное состояние:**
 
 ```typescript
 // ❌ Сложно тестировать
 let currentUser: User | null = null;
 
-const getUserName = (): string =>
-  currentUser?.name ?? 'Guest'; // Зависит от глобального состояния
+const getUserName = (): string => currentUser?.name ?? 'Guest'; // Зависит от глобального состояния
 ```
+
 **Тесно связанный код:**
+
 ```typescript
 // ❌ Сложно тестировать — всё связано
 class OrderProcessor {
   processOrder(order: Order) {
     const validation = new OrderValidator(); // Жёсткая связь
     validation.validate(order);
-    
+
     const payment = new PaymentService(); // Жёсткая связь
     payment.charge(order);
-    
+
     const email = new EmailService(); // Жёсткая связь
     email.send(order.user.email, 'Order confirmed');
   }
 }
 ```
+
 **Скрытые зависимости:**
+
 ```typescript
 // ❌ Сложно тестировать — скрытая зависимость на Date
-const isExpired = (expiryDate: Date): boolean =>
-  expiryDate < new Date(); // Зависимость от текущего времени
+const isExpired = (expiryDate: Date): boolean => expiryDate < new Date(); // Зависимость от текущего времени
 
 // ✅ Легко тестировать — явная зависимость
 const isExpired = (expiryDate: Date, currentDate: Date = new Date()): boolean =>
@@ -238,6 +261,7 @@ test('isExpired', () => {
 ```
 
 ### 2.3 Рефакторинг для тестов
+
 **Извлечение зависимостей:**
 
 ```typescript
@@ -269,7 +293,9 @@ class UserService {
 
 // Теперь можно подставить моки в тестах
 ```
+
 **Разделение логики и эффектов:**
+
 ```typescript
 // ✅ Чистая логика
 const calculateDiscount = (user: User, order: Order): number => {
@@ -296,18 +322,15 @@ test('calculateDiscount', () => {
 ### 2.4 Примеры реальных тестов
 
 **Пример 1: Тестирование чистой функции**
+
 ```typescript
 // src/utils/calculate.ts
 export const calculateTotal = (items: Array<{ price: number }>): number =>
   items.reduce((sum, item) => sum + item.price, 0);
 
-export const calculateTax = (amount: number, taxRate: number): number =>
-  amount * taxRate;
+export const calculateTax = (amount: number, taxRate: number): number => amount * taxRate;
 
-export const calculateFinalPrice = (
-  items: Array<{ price: number }>,
-  taxRate: number
-): number => {
+export const calculateFinalPrice = (items: Array<{ price: number }>, taxRate: number): number => {
   const subtotal = calculateTotal(items);
   const tax = calculateTax(subtotal, taxRate);
   return subtotal + tax;
@@ -360,6 +383,7 @@ describe('calculateFinalPrice', () => {
 ```
 
 **Пример 2: Тестирование с моками (Dependency Injection)**
+
 ```typescript
 // src/services/user-service.ts
 interface UserRepository {
@@ -434,9 +458,7 @@ describe('UserService', () => {
       expect(mockRepository.save).toHaveBeenCalledWith(result);
 
       expect(mockEmailService.sendWelcomeEmail).toHaveBeenCalledTimes(1);
-      expect(mockEmailService.sendWelcomeEmail).toHaveBeenCalledWith(
-        'john@example.com'
-      );
+      expect(mockEmailService.sendWelcomeEmail).toHaveBeenCalledWith('john@example.com');
     });
   });
 
@@ -487,6 +509,7 @@ describe('UserService', () => {
 ```
 
 **Пример 3: Тестирование валидации**
+
 ```typescript
 // src/utils/validation.ts
 export const isValidEmail = (email: string): boolean => {
@@ -594,6 +617,7 @@ describe('validateUser', () => {
 ```
 
 **Ключевые принципы тестирования:**
+
 1. **AAA pattern**: Arrange (подготовка) → Act (действие) → Assert (проверка)
 2. **Один тест = одна проверка**: Каждый тест проверяет один сценарий
 3. **Явные имена**: `it('should return null when user not found')` понятнее чем `it('test getUser')`

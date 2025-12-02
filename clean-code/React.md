@@ -9,15 +9,15 @@
 **❌ Плохо:**
 
 ```typescript
-import { Button } from '../../../components/ui/button'
-import { Card } from '../../../../components/common/card'
+import { Button } from '../../../components/ui/button';
+import { Card } from '../../../../components/common/card';
 ```
 
 **✅ Хорошо — через `alias` в `tsconfig.json`:**
 
 ```typescript
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/common/card'
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/common/card';
 ```
 
 **Настройка в `tsconfig.json`:**
@@ -40,12 +40,12 @@ import { Card } from '@/components/common/card'
 **Настройка в `vite.config.ts`:**
 
 ```typescript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'url'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
@@ -61,7 +61,7 @@ export default defineConfig({
       },
     ],
   },
-})
+});
 ```
 
 ### 1.2 Порядок импортов
@@ -71,28 +71,28 @@ export default defineConfig({
 
 ```typescript
 // 1. Встроенные модули Node.js (если есть)
-import fs from 'fs'
-import path from 'path'
+import fs from 'fs';
+import path from 'path';
 
 // 2. Внешние библиотеки (npm-пакеты)
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // 3. Глобальные файлы проекта
-import { ROUTES } from '@/constants/routes'
-import { formatDate } from '@/utils/dateUtils'
+import { ROUTES } from '@/constants/routes';
+import { formatDate } from '@/utils/dateUtils';
 
 // 4. Контекст / хуки / глобальные состояния
-import { AuthProvider } from '@/context/auth-context'
-import { useAuth } from '@/hooks/use-auth'
+import { AuthProvider } from '@/context/auth-context';
+import { useAuth } from '@/hooks/use-auth';
 
 // 5. Компоненты
-import { Header } from '@/components/header'
-import { Button } from '@/components/ui/button'
+import { Header } from '@/components/header';
+import { Button } from '@/components/ui/button';
 
 // 6. Локальные модули (относящиеся к текущему компоненту)
-import { UserCard } from './user-card'
-import styles from './styles.module.css'
+import { UserCard } from './user-card';
+import styles from './styles.module.css';
 ```
 
 **✅ Рекомендуется разделять пустой строкой импорты из библиотеки и локальные импорты**
@@ -150,10 +150,11 @@ export const CardList = ({
 **Импорт в других частях приложения:**
 
 ```typescript
-import { CardList } from '@/components/card-list'
+import { CardList } from '@/components/card-list';
 ```
 
 #### Почему именно так?
+
 - **kebab-case** для папок и файлов стандартизирует проект, предотвращает баги в разных ОС и не ломает git.
 - Разбиение по папкам сжатого вида позволяет удобно складывать стили, тесты, типы ≈ один компонент = одна самостоятельная единица.
 
@@ -166,7 +167,6 @@ import { CardList } from '@/components/card-list'
 ```bash
 git config core.ignorecase false
 ```
-
 
 #### Пример шаблона для нового компонента (boilerplate):
 
@@ -193,17 +193,21 @@ export const MyComponent = ({ children, className }: MyComponentProps): React.JS
   <div className={cn(styles.root, className)}>{children}</div>
 )
 ```
+
 ---
+
 - **Одна папка = один компонент**  
   (kebab-case, index.tsx — экспорт именованный)
 
 - **Импорт максимально короткий:**  
   `import { Button } from '@/components/button'`
 
-
 ## 2. Компоненты React
+
 ### 2.1 Стрелочные функции для компонентов
+
 **✅ Хорошая практика — компоненты как стрелочные функции:**
+
 ```typescript
 // Компонент без пропсов
 const App = (): React.JSX.Element => {
@@ -212,7 +216,9 @@ const App = (): React.JSX.Element => {
 
 export default App
 ```
+
 **Компонент с пропсами:**
+
 ```typescript
 type ButtonProps = {
   label: string
@@ -234,7 +240,9 @@ const Button = ({
 
 export default Button
 ```
+
 **С destructuring:**
+
 ```typescript
 const UserCard = ({ user }: { user: User }): React.JSX.Element => {
   const { name, email, avatar } = user
@@ -248,10 +256,13 @@ const UserCard = ({ user }: { user: User }): React.JSX.Element => {
   )
 }
 ```
+
 ### 2.2 Типизация компонентов
+
 **В React 18+ FC больше не включает children автоматически**
 
 **Использование PropsWithChildren:**
+
 ```typescript
 import { PropsWithChildren } from 'react';
 
@@ -269,12 +280,14 @@ const Container = ({
 ```
 
 Преимущества:
-  - Меньше кода (не нужно вручную типизировать children)
-  - Официальный utility type от React
-  - Явно показывает, что компонент принимает children
-  - children автоматически типизируется как ReactNode | undefined
+
+- Меньше кода (не нужно вручную типизировать children)
+- Официальный utility type от React
+- Явно показывает, что компонент принимает children
+- children автоматически типизируется как ReactNode | undefined
 
 **Явная типизация `children`:**
+
 ```typescript
 type ContainerProps = {
   title: string
@@ -292,28 +305,33 @@ const Container = ({ title, children }: ContainerProps): React.JSX.Element => {
 ```
 
 Когда использовать:
+
 - Нужен контроль над optional/required
 - Нужно сделать children обязательным: children: React.ReactNode (без ?)
 - Явная документация в интерфейсе
 
 **Типы для `children`:**
+
 ```typescript
 // Любой React элемент
-children: React.ReactNode
+children: React.ReactNode;
 // Только один элемент
-children: React.ReactElement
+children: React.ReactElement;
 // Только строка или число
-children: string | number
+children: string | number;
 // Функция как child
-children: (value: number) => React.ReactNode
+children: (value: number) => React.ReactNode;
 ```
 
 ### 2.3 Использование `React.memo()`
+
 **Когда использовать:**
+
 - Компонент часто ререндерится с теми же пропсами
 - Компонент тяжёлый (сложные вычисления или большой UI)
-  
+
 **✅ С `displayName` для отладки:**
+
 ```typescript
 const UserCard = ({ user }: { user: User }): React.JSX.Element => {
   return (
@@ -328,17 +346,21 @@ UserCard.displayName = 'UserCard'
 
 export default React.memo(UserCard)
 ```
+
 **С кастомным сравнением:**
+
 ```typescript
 const areEqual = (prevProps: Props, nextProps: Props) => {
-  return prevProps.user.id === nextProps.user.id
-}
+  return prevProps.user.id === nextProps.user.id;
+};
 
-export default React.memo(UserCard, areEqual)
+export default React.memo(UserCard, areEqual);
 ```
 
 ### 2.4 Разбиение больших компонентов
+
 **❌ Плохо — один большой компонент:**
+
 ```typescript
 const UserProfile = (): React.JSX.Element => {
   return (
@@ -362,7 +384,9 @@ const UserProfile = (): React.JSX.Element => {
   )
 }
 ```
+
 **✅ Хорошо — разбито на подкомпоненты:**
+
 ```typescript
 const UserProfile = (): React.JSX.Element => {
   return (
@@ -377,7 +401,9 @@ const UserProfile = (): React.JSX.Element => {
 ```
 
 ### 2.5 Обработчики событий
+
 **Если функция простая — можно не выносить:**
+
 ```typescript
 const Pagination = (): React.JSX.Element => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -391,7 +417,9 @@ const Pagination = (): React.JSX.Element => {
   )
 }
 ```
+
 **Если сложная — выносим:**
+
 ```typescript
 const Form = (): React.JSX.Element => {
   const [formData, setFormData] = useState({ name: '', email: '' })
@@ -409,24 +437,28 @@ const Form = (): React.JSX.Element => {
 ```
 
 ### 2.6 Сокращение кода через destructuring
+
 **❌ Плохо:**
+
 ```typescript
 const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const newPassword = e.target.value
-  setPassword(newPassword)
-}
+  const newPassword = e.target.value;
+  setPassword(newPassword);
+};
 ```
+
 **✅ Хорошо:**
+
 ```typescript
-const onChange = ({
-  target: { value },
-}: React.ChangeEvent<HTMLInputElement>) => {
-  setPassword(value)
-}
+const onChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+  setPassword(value);
+};
 ```
 
 ### 3. Хуки React
+
 #### 3.1 `useCallback`
+
 **Когда `useCallback` НУЖЕН:**
 
 **1️⃣ Функция передаётся в дочерний компонент с `React.memo()`:**
@@ -452,6 +484,7 @@ const Child = React.memo<{ onClick: () => void }>(({ onClick }) => {
   return <button onClick={onClick}>Click me</button>
 })
 ```
+
 ✅ Теперь `Child` **не перерисовывается при каждом изменении `count`**!
 
 **2️⃣ Функция передаётся в `useEffect`:**
@@ -469,7 +502,9 @@ const Component = (): React.JSX.Element => {
   return <div>Content</div>
 }
 ```
+
 **3️⃣ Функция используется в `setInterval`, `setTimeout` или `eventListener`:**
+
 ```typescript
 const Component = (): React.JSX.Element => {
   const [count, setCount] = useState(0)
@@ -490,6 +525,7 @@ const Component = (): React.JSX.Element => {
 **❌ Когда `useCallback` НЕ НУЖЕН:**
 
 **1️⃣ Если функция вызывается только внутри компонента:**
+
 ```typescript
 const Component = (): React.JSX.Element => {
   const handleClick = () => {
@@ -499,6 +535,7 @@ const Component = (): React.JSX.Element => {
   return <button onClick={handleClick}>Click me</button>
 }
 ```
+
 ❌ **`useCallback` не нужен**, потому что `handleClick` не передаётся никуда дальше!
 
 **2️⃣ Функция создаётся прямо в обработчике:**
@@ -506,57 +543,62 @@ const Component = (): React.JSX.Element => {
 ```typescript
 <button onClick={() => console.log('Clicked!')}>Click me</button>
 ```
+
 ❌ **Здесь `useCallback` не нужен**
 
 ### 3.2 Вынесение логики в кастомные хуки
+
 **Проблема:** Логика загрузки данных дублируется в разных компонентах.
 
 **✅ Решение — кастомный хук `usePeople.ts`:**
+
 ```typescript
-import { useState, useEffect } from 'react'
-import { getAllPeople, searchPeople } from '@/services/api'
-import { Person } from '@/types'
+import { useState, useEffect } from 'react';
+import { getAllPeople, searchPeople } from '@/services/api';
+import { Person } from '@/types';
 
 export const usePeople = (query: string, page: number) => {
-  const [people, setPeople] = useState<Person[]>([])
-  const [totalCount, setTotalCount] = useState(0)
-  const [isLoading, setIsLoading] = useState(false)
-  const [hasError, setHasError] = useState(false)
+  const [people, setPeople] = useState<Person[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    const controller = new AbortController()
-    const { signal } = controller
+    const controller = new AbortController();
+    const { signal } = controller;
 
     const fetchPeople = async () => {
-      setIsLoading(true)
-      setHasError(false)
+      setIsLoading(true);
+      setHasError(false);
 
       try {
         const data = query
           ? await searchPeople(query, page, signal)
-          : await getAllPeople(page, signal)
+          : await getAllPeople(page, signal);
 
-        setPeople(data.results)
-        setTotalCount(data.count)
+        setPeople(data.results);
+        setTotalCount(data.count);
       } catch (error) {
         if (error.name !== 'AbortError') {
-          console.error('Error loading people:', error)
-          setHasError(true)
+          console.error('Error loading people:', error);
+          setHasError(true);
         }
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchPeople()
+    fetchPeople();
 
-    return () => controller.abort()
-  }, [query, page])
+    return () => controller.abort();
+  }, [query, page]);
 
-  return { people, totalCount, isLoading, hasError }
-}
+  return { people, totalCount, isLoading, hasError };
+};
 ```
+
 **Использование в компоненте:**
+
 ```typescript
 const MainPage = (): React.JSX.Element => {
   const [query, setQuery] = useState('')
@@ -576,52 +618,61 @@ const MainPage = (): React.JSX.Element => {
   )
 }
 ```
+
 **Преимущества:**
+
 - ✅ Чище код в компонентах
 - ✅ Можно переиспользовать логику в разных местах
 - ✅ Избегаем дублирования `useEffect` и `useState`
 
 ### 3.3 `AbortController` в `useEffect`
+
 **Проблема:** Если компонент размонтируется до завершения запроса, React выдаст ошибку:
+
 ```
 Warning: Can't perform a React state update on an unmounted component.
 ```
+
 **✅ Решение — отменять запрос с `AbortController`:**
+
 ```typescript
 useEffect(() => {
-  const controller = new AbortController()
+  const controller = new AbortController();
 
   const fetchData = async () => {
     try {
       const response = await fetch('https://api.example.com/data', {
         signal: controller.signal,
-      })
-      const data = await response.json()
-      setData(data)
+      });
+      const data = await response.json();
+      setData(data);
     } catch (error) {
       if (error.name !== 'AbortError') {
-        console.error('Ошибка загрузки:', error)
+        console.error('Ошибка загрузки:', error);
       }
     }
-  }
+  };
 
-  fetchData()
+  fetchData();
 
   return () => {
-    controller.abort() // ✅ Отменяем запрос при размонтировании
-  }
-}, [])
+    controller.abort(); // ✅ Отменяем запрос при размонтировании
+  };
+}, []);
 ```
+
 **Когда `AbortController` нужен:**
 
-| Сценарий | Нужен `AbortController`? | Почему? |
-|----------|--------------------------|---------|
-| Одноразовый запрос в `useEffect` | ✅ **Да** | Если компонент размонтируется, запрос отменяется |
-| `useEffect` с `setInterval` | ✅ **Да** | Нужно отменять запросы перед каждым повторным вызовом |
-| Синхронные операции | ❌ **Нет** | Запрос сразу выполняется, `abort` не нужен |
+| Сценарий                         | Нужен `AbortController`? | Почему?                                               |
+| -------------------------------- | ------------------------ | ----------------------------------------------------- |
+| Одноразовый запрос в `useEffect` | ✅ **Да**                | Если компонент размонтируется, запрос отменяется      |
+| `useEffect` с `setInterval`      | ✅ **Да**                | Нужно отменять запросы перед каждым повторным вызовом |
+| Синхронные операции              | ❌ **Нет**               | Запрос сразу выполняется, `abort` не нужен            |
 
 ## 4. Оптимизация и производительность
+
 ### 4.1 Условный рендеринг
+
 **Early return для условий:**
 
 ```typescript
@@ -636,7 +687,9 @@ const UserProfile = ({ user }: { user: User | null }): React.JSX.Element => {
   )
 }
 ```
+
 **Избегать длинных тернарных операторов:**
+
 ```typescript
 // ❌ Плохо — сложно читать
 return (
@@ -661,7 +714,9 @@ return <DataView data={data} />
 ```
 
 ### 4.2 Оптимизация импортов из библиотек
+
 **❌ Плохо — импорт всей библиотеки:**
+
 ```typescript
 import * as MUI from '@mui/material'
 
@@ -669,19 +724,24 @@ const App = () => <MUI.Button>Click</MUI.Button>
 ```
 
 **✅ Хорошо — именованный импорт конкретных компонентов:**
+
 ```typescript
 import Button from '@mui/material/Button'
 import Switch from '@mui/material/Switch'
 
 const App = () => <Button>Click</Button>
 ```
+
 **Преимущества:**
+
 - Меньше размер бандла
 - Быстрее загрузка
 - Tree shaking работает эффективнее
 
 ### 4.3 Вынос сложных вычислений в переменные
+
 **❌ Плохо — длинные вычисления в JSX:**
+
 ```typescript
 <div
   className={classNames(
@@ -691,7 +751,9 @@ const App = () => <Button>Click</Button>
   )}
 >
 ```
+
 **✅ Хорошо — вынесено в переменную:**
+
 ```typescript
 const className = classNames(
   styles.root,
@@ -703,8 +765,11 @@ return <div className={className}>;
 ```
 
 ## 5. Работа с формами
+
 ### 5.1 Атрибут `autoComplete`
+
 **Улучшает UX — браузер может автоматически заполнять поля:**
+
 ```typescript
 <input
   type="text"
@@ -730,7 +795,9 @@ return <div className={className}>;
   autoComplete="current-password"
 />
 ```
+
 **Полезные значения:**
+
 - `name` или `given-name` — имя
 - `nickname` — никнейм
 - `email` — email
@@ -740,6 +807,7 @@ return <div className={className}>;
 - `street-address` — адрес
 
 ### 5.2 Валидация и обработка ошибок
+
 ```typescript
 type FormState = {
   email: string
@@ -805,7 +873,9 @@ const LoginForm = (): React.JSX.Element => {
 ```
 
 ## 6. Работа с темами
+
 ### 6.1 Глобальные CSS переменные вместо useTheme
+
 **Проблема:** `useTheme` в каждом компоненте вызывает лишние ререндеры.
 
 **✅ Решение — CSS переменные + атрибут `data-theme`:**
@@ -831,7 +901,9 @@ const ThemeProvider = ({
   )
 }
 ```
+
 **В CSS:**
+
 ```css
 :root {
   --white: #fff;
@@ -850,45 +922,60 @@ body[data-theme='dark'] {
   --component-bg: rgba(33, 37, 41, 0.4);
 }
 ```
+
 **В компонентах:**
+
 ```css
 .card {
   background-color: var(--component-bg);
   color: var(--color-text);
 }
 ```
+
 **Преимущества:**
+
 - ✅ Нет лишних ререндеров
 - ✅ Проще поддерживать
 - ✅ CSS переменные работают быстрее
 
 ## 7. Next.js Best Practices
+
 ### 7.1 Использование `Link` вместо кастомной навигации
 
 **❌ Плохо — ручная навигация:**
+
 ```typescript
 const handleClick = () => {
   router.push('/profile')
 }
 <button onClick={handleClick}>Go to Profile</button>
 ```
+
 **✅ Хорошо — компонент `Link`:**
+
 ```typescript
 import Link from 'next/link'
 <Link href="/profile">Go to Profile</Link>
 ```
+
 **Преимущества:**
+
 - Автоматическая предзагрузка страниц
 - Лучшая производительность
 - SEO-оптимизация
 
 ## 8. Антипаттерны React
+
 ### 8.1 НЕ использовать `dangerouslySetInnerHTML`
+
 **❌ Опасно — XSS уязвимость:**
+
 ```typescript
 <div dangerouslySetInnerHTML={{ __html: userContent }} />
 ```
+
 **✅ Безопасно — рендерить как текст или использовать библиотеку:**
+
 ```typescript
 // Вариант 1: как текст
 <div>{userContent}</div>
@@ -899,30 +986,40 @@ const sanitizedHTML = DOMPurify.sanitize(userContent)
 ```
 
 ### 8.2 Всегда добавлять `key` в `map()`
+
 **❌ Плохо:**
+
 ```typescript
 items.map((item) => <Card name={item.name} />)
 ```
+
 **✅ Хорошо:**
+
 ```typescript
 items.map((item) => <Card key={item.id} name={item.name} />)
 ```
 
 ### 8.3 Удалять `console.log()` перед продакшеном
+
 **❌ Плохо:**
+
 ```typescript
-console.log('Fetching user...')
-fetchUser()
+console.log('Fetching user...');
+fetchUser();
 ```
+
 **✅ Хорошо — использовать logger:**
+
 ```typescript
-import { logger } from '@/utils/logger'
-logger.debug('Fetching user...')
-fetchUser()
+import { logger } from '@/utils/logger';
+logger.debug('Fetching user...');
+fetchUser();
 ```
 
 ### 8.4 Удалять комментарии перед финальным PR
+
 **Комментарии должны быть актуальны и полезны. Удаляй:**
+
 - Закомментированный код
 - TODO без даты
 - Очевидные комментарии

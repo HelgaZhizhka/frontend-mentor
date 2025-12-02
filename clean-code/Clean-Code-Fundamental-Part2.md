@@ -3,13 +3,17 @@
 > **Примечание:** Основы чистого кода (именование, функции, комментарии) описаны в [Части 1](Clean-Code-Fundamental-Part1.md). Эта часть углубляется в рефакторинг и организацию кода.
 
 ## 1. Code Smells (Признаки плохого кода)
+
 ### 1.1 Duplicated Code (Дублирование)
+
 **Признаки:**
+
 - Copy-paste код
 - Одинаковая логика в разных местах
 - Похожие функции
 
 **❌ Плохо:**
+
 ```typescript
 const calculateEmployeeSalary = (employee: Employee): number => {
   const baseSalary = employee.baseSalary;
@@ -25,7 +29,9 @@ const calculateContractorPayment = (contractor: Contractor): number => {
   return basePay + bonus - tax;
 };
 ```
+
 **✅ Хорошо — Extract Method:**
+
 ```typescript
 const calculateNetPayment = (basePay: number, bonus: number = 0): number => {
   const grossPay = basePay + bonus;
@@ -41,13 +47,17 @@ const calculateContractorPayment = (contractor: Contractor): number =>
 ```
 
 ### 1.2 Long Method (Длинная функция)
+
 **Признаки:**
+
 - Функция больше 20-30 строк
 - Трудно понять с первого взгляда
 - Несколько уровней абстракции
 
 ### 1.3 Large Class (Большой класс)
+
 **Признаки:**
+
 - Класс делает слишком много
 - Много методов и свойств
 - God Object anti-pattern
@@ -62,29 +72,31 @@ class User {
   email: string;
 
   // Database operations
-  save() { }
-  update() { }
-  delete() { }
+  save() {}
+  update() {}
+  delete() {}
 
   // Email operations
-  sendWelcomeEmail() { }
-  sendPasswordResetEmail() { }
+  sendWelcomeEmail() {}
+  sendPasswordResetEmail() {}
 
   // Authentication
-  login() { }
-  logout() { }
-  resetPassword() { }
+  login() {}
+  logout() {}
+  resetPassword() {}
 
   // Validation
-  validateEmail() { }
-  validatePassword() { }
+  validateEmail() {}
+  validatePassword() {}
 
   // Reporting
-  generateReport() { }
-  exportToPDF() { }
+  generateReport() {}
+  exportToPDF() {}
 }
 ```
+
 **✅ Хорошо — разделение ответственности:**
+
 ```typescript
 class User {
   constructor(
@@ -95,30 +107,30 @@ class User {
 }
 
 class UserRepository {
-  save(user: User) { }
-  update(user: User) { }
-  delete(userId: string) { }
+  save(user: User) {}
+  update(user: User) {}
+  delete(userId: string) {}
 }
 
 class UserEmailService {
-  sendWelcomeEmail(user: User) { }
-  sendPasswordResetEmail(user: User) { }
+  sendWelcomeEmail(user: User) {}
+  sendPasswordResetEmail(user: User) {}
 }
 
 class UserAuth {
-  login(email: string, password: string) { }
-  logout(userId: string) { }
-  resetPassword(userId: string) { }
+  login(email: string, password: string) {}
+  logout(userId: string) {}
+  resetPassword(userId: string) {}
 }
 
 class UserValidator {
-  validateEmail(email: string) { }
-  validatePassword(password: string) { }
+  validateEmail(email: string) {}
+  validatePassword(password: string) {}
 }
 
 class UserReportGenerator {
-  generate(user: User) { }
-  exportToPDF(user: User) { }
+  generate(user: User) {}
+  exportToPDF(user: User) {}
 }
 ```
 
@@ -127,11 +139,13 @@ class UserReportGenerator {
 > Подробнее см. [Часть 1, раздел 2.2 - Параметры функции](Clean-Code-Fundamental-Part1.md#22-параметры-функции)
 
 **Признаки:**
+
 - Функция принимает более 3 параметров
 - Трудно запомнить порядок параметров
 - Высокий риск ошибки при вызове
 
 **❌ Плохо:**
+
 ```typescript
 function createUser(
   firstName: string,
@@ -149,6 +163,7 @@ createUser('John', 'Doe', 'john@example.com', 30, '123 St', '+123456');
 ```
 
 **✅ Хорошо — объект параметров:**
+
 ```typescript
 interface CreateUserParams {
   firstName: string;
@@ -171,13 +186,14 @@ createUser({
   email: 'john@example.com',
   age: 30,
   address: '123 St',
-  phone: '+123456'
+  phone: '+123456',
 });
 ```
 
 ### 1.5 Magic Numbers и Magic Strings
 
 **❌ Плохо:**
+
 ```typescript
 const calculatePrice = (price: number) => {
   if (price > 100) {
@@ -186,7 +202,8 @@ const calculatePrice = (price: number) => {
   return price;
 };
 
-if (user.role === 'admin') { // ❌ Magic string
+if (user.role === 'admin') {
+  // ❌ Magic string
   // ...
 }
 
@@ -194,7 +211,9 @@ setTimeout(() => {
   // ...
 }, 3600000); // ❌ Что такое 3600000?
 ```
+
 **✅ Хорошо:**
+
 ```typescript
 const DISCOUNT_THRESHOLD = 100;
 const DISCOUNT_RATE = 0.9;
@@ -209,7 +228,7 @@ const calculatePrice = (price: number): number => {
 const USER_ROLES = {
   ADMIN: 'admin',
   USER: 'user',
-  GUEST: 'guest'
+  GUEST: 'guest',
 } as const;
 
 if (user.role === USER_ROLES.ADMIN) {
@@ -226,17 +245,19 @@ setTimeout(() => {
 ### 1.6 Dead Code (Мёртвый код)
 
 **Признаки:**
+
 - Неиспользуемые функции
 - Закомментированный код
 - Unreachable code
 
 **❌ Плохо:**
+
 ```typescript
 const processUser = (user: User) => {
   // const oldProcessUser = (user: User) => {
   //   // старая логика
   // };
-  
+
   if (user.isActive) {
     return activateUser(user);
   } else {
@@ -249,19 +270,23 @@ const unusedFunction = () => {
   // ❌ Никогда не вызывается
 };
 ```
+
 **✅ Хорошо — удаляем:**
+
 ```typescript
 const processUser = (user: User) => {
   if (user.isActive) {
     return activateUser(user);
   }
-  
+
   return deactivateUser(user);
 };
 
 // unusedFunction удалена
 ```
+
 **Как безопасно удалять:**
+
 1. Поиск всех упоминаний (Ctrl+Shift+F)
 2. Git history всегда хранит старую версию
 
@@ -270,6 +295,7 @@ const processUser = (user: User) => {
 **Проблема:** Использование примитивов вместо объектов.
 
 **❌ Плохо:**
+
 ```typescript
 const sendEmail = (
   to: string,
@@ -283,12 +309,14 @@ const sendEmail = (
 
 sendEmail('user@example.com', 'Hello', 'Body', 2, 3);
 ```
+
 **✅ Хорошо — Value Objects:**
+
 ```typescript
 enum EmailPriority {
   LOW = 1,
   NORMAL = 2,
-  HIGH = 3
+  HIGH = 3,
 }
 
 interface Email {
@@ -308,13 +336,15 @@ sendEmail({
   subject: 'Hello',
   body: 'Body',
   priority: EmailPriority.NORMAL,
-  retryCount: 3
+  retryCount: 3,
 });
 ```
 
 ### 1.9 Switch Statements
+
 **Когда switch — smell:**
 **❌ Плохо — switch можно заменить:**
+
 ```typescript
 const getAnimalSound = (animal: string): string => {
   switch (animal) {
@@ -329,18 +359,21 @@ const getAnimalSound = (animal: string): string => {
   }
 };
 ```
+
 **✅ Хорошо — объект (dictionary):**
+
 ```typescript
 const ANIMAL_SOUNDS: Record<string, string> = {
   dog: 'woof',
   cat: 'meow',
-  cow: 'moo'
+  cow: 'moo',
 };
 
-const getAnimalSound = (animal: string): string =>
-  ANIMAL_SOUNDS[animal] ?? 'unknown';
+const getAnimalSound = (animal: string): string => ANIMAL_SOUNDS[animal] ?? 'unknown';
 ```
+
 **✅ Или полиморфизм:**
+
 ```typescript
 interface Animal {
   makeSound(): string;
@@ -361,7 +394,9 @@ class Cat implements Animal {
 const animal: Animal = new Dog();
 console.log(animal.makeSound()); // woof
 ```
+
 **Когда switch ОК:**
+
 - Сложная логика в каждой ветке
 - Fall-through behavior нужен
 - Работа с диапазонами
@@ -371,13 +406,16 @@ console.log(animal.makeSound()); // woof
 **Проблема:** Одно изменение требует правок во многих местах.
 
 **❌ Плохо:**
+
 ```typescript
 // В 10 разных файлах:
 const TAX_RATE = 0.2;
 
 // Если нужно изменить налог — правим 10 файлов ❌
 ```
+
 **✅ Хорошо — централизация:**
+
 ```typescript
 // config/tax.ts
 export const TAX_RATE = 0.2;
@@ -389,19 +427,24 @@ import { TAX_RATE } from './config/tax';
 ```
 
 ## 2. Организация кода
+
 ### 2.1 Форматирование
+
 **Отступы:**
+
 - **2 пробела** (рекомендуется) или 4 пробела
 - **НЕ табы** (проблемы на разных системах)
-**Длина строки:**
+  **Длина строки:**
 - **80-120 символов** максимум
 - Переносить длинные строки
+
 ```typescript
 // ❌ Плохо — слишком длинная строка
 const message = `This is a very long message that should be split into multiple lines to improve readability and maintain code quality standards`;
 
 // ✅ Хорошо
-const message = `This is a very long message that should be split ` +
+const message =
+  `This is a very long message that should be split ` +
   `into multiple lines to improve readability ` +
   `and maintain code quality standards`;
 
@@ -412,7 +455,9 @@ const message = `
   and maintain code quality standards
 `.trim();
 ```
+
 **Пустые строки для группировки:**
+
 ```typescript
 // ✅ Группировка логических блоков
 const processUser = (user: User) => {
@@ -431,12 +476,14 @@ const processUser = (user: User) => {
   return user;
 };
 ```
+
 **Вертикальное расстояние:**
+
 ```typescript
 // ❌ Плохо — всё слипшееся
-const foo = () => { };
-const bar = () => { };
-const baz = () => { };
+const foo = () => {};
+const bar = () => {};
+const baz = () => {};
 
 // ✅ Хорошо — разделено пустыми строками
 const foo = () => {
@@ -453,7 +500,9 @@ const baz = () => {
 ```
 
 ### 2.2 Порядок кода
+
 **В классах:**
+
 ```typescript
 class UserService {
   // 1. Статические свойства
@@ -489,7 +538,9 @@ class UserService {
   }
 }
 ```
+
 **В модулях (файлах):**
+
 ```typescript
 // 1. Импорты (внешние библиотеки)
 import React, { useState, useEffect } from 'react';
@@ -516,19 +567,21 @@ export const UserProfile = ({ userId }: UserProfileProps) => {
   // ...
 };
 ```
+
 **Связанные функции рядом:**
+
 ```typescript
 // ✅ Хорошо — связанные функции рядом
-const validateEmail = (email: string): boolean =>
-  /\S+@\S+\.\S+/.test(email);
+const validateEmail = (email: string): boolean => /\S+@\S+\.\S+/.test(email);
 
-const validatePassword = (password: string): boolean =>
-  password.length >= 8;
+const validatePassword = (password: string): boolean => password.length >= 8;
 
 const validateUser = (user: User): boolean =>
   validateEmail(user.email) && validatePassword(user.password);
 ```
+
 ### 2.3 Порядок импортов:
+
 ```typescript
 // 1. Node.js встроенные модули
 import fs from 'fs';
@@ -564,7 +617,8 @@ import { useAuth } from '@/hooks/useAuth';
 
 import styles from './styles.module.css';
 ```
-Используйте eslint плагин для форматирования импортов eslint-plugin-import. 
+
+Используйте eslint плагин для форматирования импортов eslint-plugin-import.
 
 **Избегать barrel exports где не нужно:**
 
@@ -585,6 +639,7 @@ import { Input } from '@/components/input';
 ```
 
 **Когда barrel exports полезны:**
+
 - Небольшое количество экспортов (5-10)
 - Логически связанная группа
 - Публичное API библиотеки

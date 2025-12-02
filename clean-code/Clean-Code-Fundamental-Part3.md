@@ -1,6 +1,9 @@
 # Продвинутые практики чистого кода
+
 ## 1. Работа с данными
+
 ### 1.1 Избегать глобальных переменных
+
 **❌ Плохо:**
 
 ```typescript
@@ -12,7 +15,9 @@ const greet = () => {
 
 // Проблема: userName может быть изменён откуда угодно
 ```
+
 **✅ Хорошо:**
+
 ```typescript
 const greet = (userName: string) => {
   console.log(`Hello, ${userName}`);
@@ -20,7 +25,7 @@ const greet = (userName: string) => {
 
 // Или используем модуль
 const config = {
-  userName: 'John'
+  userName: 'John',
 };
 
 export const greet = () => {
@@ -29,6 +34,7 @@ export const greet = () => {
 ```
 
 ### 1.2 Использовать const по умолчанию
+
 ```typescript
 // ✅ const по умолчанию
 const MAX_USERS = 100;
@@ -42,29 +48,37 @@ count++;
 ```
 
 ### 1.3 Избегать мутации параметров
+
 **❌ Плохо:**
+
 ```typescript
 const updateUser = (user: User) => {
   user.age = 30; // ❌ Мутация параметра
   user.updatedAt = new Date();
 };
 ```
+
 **✅ Хорошо:**
+
 ```typescript
 const updateUser = (user: User): User => ({
   ...user,
   age: 30,
-  updatedAt: new Date()
+  updatedAt: new Date(),
 });
 ```
+
 ### 1.4 Immutability (Неизменяемость)
+
 **Почему важна:**
+
 - Предсказуемость
 - Упрощает отладку
 - React оптимизация (shallow comparison)
 - Избегает мутаций
 
 **❌ Плохо — мутация:**
+
 ```typescript
 const user = { name: 'John', age: 30 };
 user.age = 31; // ❌ Мутация
@@ -75,7 +89,9 @@ numbers.push(4); // ❌ Мутация
 const users = [{ id: 1, name: 'John' }];
 users[0].name = 'Jane'; // ❌ Мутация
 ```
+
 **✅ Хорошо — иммутабельность:**
+
 ```typescript
 // Объекты — spread operator
 const user = { name: 'John', age: 30 };
@@ -84,43 +100,43 @@ const updatedUser = { ...user, age: 31 }; // ✅ Новый объект
 // Массивы — методы без мутации
 const numbers = [1, 2, 3];
 const newNumbers = [...numbers, 4]; // ✅ Новый массив
-const filtered = numbers.filter(n => n > 1); // ✅ Новый массив
+const filtered = numbers.filter((n) => n > 1); // ✅ Новый массив
 
 // Вложенные объекты
 const users = [{ id: 1, name: 'John' }];
-const updatedUsers = users.map(u =>
-  u.id === 1 ? { ...u, name: 'Jane' } : u
-); // ✅ Новый массив с новым объектом
+const updatedUsers = users.map((u) => (u.id === 1 ? { ...u, name: 'Jane' } : u)); // ✅ Новый массив с новым объектом
 ```
+
 **Методы массивов (иммутабельные):**
 
-| Метод | Описание |
-|-------|----------|
-| `map()` | Трансформация элементов |
-| `filter()` | Фильтрация элементов |
-| `reduce()` | Агрегация |
-| `slice()` | Копия части массива |
-| `concat()` | Объединение массивов |
-| `find()`, `findIndex()` | Поиск |
-| `some()`, `every()` | Проверки |
+| Метод                   | Описание                |
+| ----------------------- | ----------------------- |
+| `map()`                 | Трансформация элементов |
+| `filter()`              | Фильтрация элементов    |
+| `reduce()`              | Агрегация               |
+| `slice()`               | Копия части массива     |
+| `concat()`              | Объединение массивов    |
+| `find()`, `findIndex()` | Поиск                   |
+| `some()`, `every()`     | Проверки                |
 
 **❌ Мутирующие методы (избегать):**
 
-| Метод | Альтернатива |
-|-------|--------------|
-| `push()` | `[...arr, item]` |
-| `pop()` | `arr.slice(0, -1)` |
-| `shift()` | `arr.slice(1)` |
-| `unshift()` | `[item, ...arr]` |
-| `splice()` | `slice() + concat()` |
-| `sort()` | `[...arr].sort()` |
+| Метод       | Альтернатива         |
+| ----------- | -------------------- |
+| `push()`    | `[...arr, item]`     |
+| `pop()`     | `arr.slice(0, -1)`   |
+| `shift()`   | `arr.slice(1)`       |
+| `unshift()` | `[item, ...arr]`     |
+| `splice()`  | `slice() + concat()` |
+| `sort()`    | `[...arr].sort()`    |
 | `reverse()` | `[...arr].reverse()` |
 
-
 ### 1.5 Работа с массивами
+
 **Декларативные методы вместо циклов:**
 
 **❌ Плохо — императивный стиль:**
+
 ```typescript
 const numbers = [1, 2, 3, 4, 5];
 
@@ -144,84 +160,96 @@ for (let i = 0; i < numbers.length; i++) {
   sum += numbers[i];
 }
 ```
+
 **✅ Хорошо — декларативный стиль:**
+
 ```typescript
 const numbers = [1, 2, 3, 4, 5];
 
 // Фильтрация
-const evens = numbers.filter(n => n % 2 === 0);
+const evens = numbers.filter((n) => n % 2 === 0);
 
 // Трансформация
-const doubled = numbers.map(n => n * 2);
+const doubled = numbers.map((n) => n * 2);
 
 // Сумма
 const sum = numbers.reduce((acc, n) => acc + n, 0);
 ```
+
 **Читаемость цепочек:**
 
 **❌ Плохо — слишком длинная цепочка:**
+
 ```typescript
 const result = users
-  .filter(u => u.isActive)
-  .map(u => ({ ...u, fullName: `${u.firstName} ${u.lastName}` }))
-  .filter(u => u.age > 18)
+  .filter((u) => u.isActive)
+  .map((u) => ({ ...u, fullName: `${u.firstName} ${u.lastName}` }))
+  .filter((u) => u.age > 18)
   .sort((a, b) => a.age - b.age)
   .slice(0, 10)
-  .map(u => u.email);
+  .map((u) => u.email);
 ```
-**✅ Хорошо — разбито на этапы:**
-```typescript
-const activeUsers = users.filter(u => u.isActive);
 
-const usersWithFullName = activeUsers.map(u => ({
+**✅ Хорошо — разбито на этапы:**
+
+```typescript
+const activeUsers = users.filter((u) => u.isActive);
+
+const usersWithFullName = activeUsers.map((u) => ({
   ...u,
-  fullName: `${u.firstName} ${u.lastName}`
+  fullName: `${u.firstName} ${u.lastName}`,
 }));
 
-const adults = usersWithFullName.filter(u => u.age > 18);
+const adults = usersWithFullName.filter((u) => u.age > 18);
 
 const sortedByAge = adults.sort((a, b) => a.age - b.age);
 
 const topTen = sortedByAge.slice(0, 10);
 
-const emails = topTen.map(u => u.email);
+const emails = topTen.map((u) => u.email);
 ```
+
 **Или с промежуточными переменными:**
+
 ```typescript
 const formatUser = (user: User) => ({
   ...user,
-  fullName: `${user.firstName} ${user.lastName}`
+  fullName: `${user.firstName} ${user.lastName}`,
 });
 
 const sortByAge = (a: User, b: User) => a.age - b.age;
 
 const result = users
-  .filter(u => u.isActive && u.age > 18)
+  .filter((u) => u.isActive && u.age > 18)
   .map(formatUser)
   .sort(sortByAge)
   .slice(0, 10)
-  .map(u => u.email);
+  .map((u) => u.email);
 ```
+
 **Полезные паттерны:**
+
 ```typescript
 // Проверка наличия элемента
-const hasAdmin = users.some(u => u.role === 'admin');
+const hasAdmin = users.some((u) => u.role === 'admin');
 
 // Проверка всех элементов
-const allActive = users.every(u => u.isActive);
+const allActive = users.every((u) => u.isActive);
 
 // Поиск элемента
-const admin = users.find(u => u.role === 'admin');
+const admin = users.find((u) => u.role === 'admin');
 
 // Индекс элемента
-const index = users.findIndex(u => u.id === userId);
+const index = users.findIndex((u) => u.id === userId);
 
 // Удаление дубликатов
-const uniqueIds = [...new Set(users.map(u => u.id))];
+const uniqueIds = [...new Set(users.map((u) => u.id))];
 ```
 
 ### 1.6 Работа с объектами
+
 **Destructuring:**
+
 ```typescript
 // ❌ Плохо — повторение
 const displayUser = (user: User) => {
@@ -245,7 +273,9 @@ const displayUser = (user: User) => {
   console.log(firstName, lastName, email, age);
 };
 ```
+
 **Default values:**
+
 ```typescript
 const greet = ({ name = 'Guest', greeting = 'Hello' } = {}) => {
   console.log(`${greeting}, ${name}!`);
@@ -254,7 +284,9 @@ const greet = ({ name = 'Guest', greeting = 'Hello' } = {}) => {
 greet(); // Hello, Guest!
 greet({ name: 'John' }); // Hello, John!
 ```
+
 **Переименование при destructuring:**
+
 ```typescript
 const user = { name: 'John', age: 30 };
 const { name: userName, age: userAge } = user;
@@ -262,7 +294,9 @@ const { name: userName, age: userAge } = user;
 console.log(userName); // John
 console.log(userAge); // 30
 ```
+
 **Spread для копирования:**
+
 ```typescript
 // Поверхностное копирование
 const user = { name: 'John', age: 30 };
@@ -282,7 +316,9 @@ const userWithId = { ...user, id: '123' };
 // Удаление свойства
 const { age, ...userWithoutAge } = user;
 ```
+
 **Object methods:**
+
 ```typescript
 // Object.keys
 const user = { name: 'John', age: 30 };
@@ -295,13 +331,18 @@ Object.values(user); // ['John', 30]
 Object.entries(user); // [['name', 'John'], ['age', 30]]
 
 // Object.fromEntries
-const entries: [string, unknown][] = [['name', 'John'], ['age', 30]];
+const entries: [string, unknown][] = [
+  ['name', 'John'],
+  ['age', 30],
+];
 Object.fromEntries(entries); // { name: 'John', age: 30 }
 
 // Object.assign (лучше использовать spread)
 const merged = Object.assign({}, defaults, userSettings);
 ```
+
 **Глубокое копирование:**
+
 ```typescript
 // ❌ Shallow copy не работает для вложенных объектов
 const user = { name: 'John', address: { city: 'NY' } };
@@ -320,11 +361,12 @@ const deepCopy2 = structuredClone(user);
 // ✅ Или вручную для конкретного случая
 const deepCopy3 = {
   ...user,
-  address: { ...user.address }
+  address: { ...user.address },
 };
 ```
 
 ### 1.7 Null и Undefined
+
 **Различия:**
 
 ```typescript
@@ -336,6 +378,7 @@ console.log(b === null); // true
 console.log(a == b); // true (loose equality)
 console.log(a === b); // false (strict equality)
 ```
+
 **Когда использовать что:**
 | Использовать | Когда |
 |--------------|-------|
@@ -356,7 +399,9 @@ const findUser = (id: string): User | null => {
   return user || null; // null = пользователь не найден
 };
 ```
+
 **Проверки:**
+
 ```typescript
 // Nullish coalescing (??)
 const value1 = null ?? 'default'; // 'default'
@@ -371,7 +416,9 @@ const city = user?.address?.city;
 let count: number | undefined;
 count ??= 0; // Присвоить 0, только если undefined или null
 ```
+
 **Избегать null где возможно:**
+
 ```typescript
 // ❌ Плохо — может вернуть null
 const getUsers = (): User[] | null => {
@@ -385,54 +432,49 @@ const getUsers = (): User[] => {
 ```
 
 ## 2. Асинхронный код
+
 ### 2.1 Promises
+
 **Цепочки then:**
+
 ```typescript
 // ✅ Правильное использование
 fetchUser(userId)
-  .then(user => validateUser(user))
-  .then(validatedUser => saveUser(validatedUser))
+  .then((user) => validateUser(user))
+  .then((validatedUser) => saveUser(validatedUser))
   .then(() => console.log('User saved'))
-  .catch(error => console.error('Error:', error))
+  .catch((error) => console.error('Error:', error))
   .finally(() => console.log('Done'));
 ```
+
 **Обработка ошибок:**
+
 ```typescript
 // ❌ Плохо — ошибки не обрабатываются
-fetchUser(userId)
-  .then(user => saveUser(user));
+fetchUser(userId).then((user) => saveUser(user));
 
 // ✅ Хорошо — всегда добавлять catch
 fetchUser(userId)
-  .then(user => saveUser(user))
-  .catch(error => {
+  .then((user) => saveUser(user))
+  .catch((error) => {
     console.error('Failed to save user:', error);
     showErrorNotification(error.message);
   });
 ```
+
 **Promise.all, Promise.race:**
+
 ```typescript
 // Параллельное выполнение
-const [users, posts, comments] = await Promise.all([
-  fetchUsers(),
-  fetchPosts(),
-  fetchComments()
-]);
+const [users, posts, comments] = await Promise.all([fetchUsers(), fetchPosts(), fetchComments()]);
 
 // Гонка — первый выполненный
-const result = await Promise.race([
-  fetchFromCache(),
-  fetchFromAPI()
-]);
+const result = await Promise.race([fetchFromCache(), fetchFromAPI()]);
 
 // Promise.allSettled — результаты всех (даже если ошибки)
-const results = await Promise.allSettled([
-  fetchUsers(),
-  fetchPosts(),
-  fetchComments()
-]);
+const results = await Promise.allSettled([fetchUsers(), fetchPosts(), fetchComments()]);
 
-results.forEach(result => {
+results.forEach((result) => {
   if (result.status === 'fulfilled') {
     console.log('Success:', result.value);
   } else {
@@ -442,18 +484,19 @@ results.forEach(result => {
 ```
 
 ### 2.2 Async/Await
+
 **Читаемость:**
+
 ```typescript
 // ❌ Promise chains могут быть сложными
 const processUser = (userId: string) => {
   return fetchUser(userId)
-    .then(user => validateUser(user))
-    .then(validatedUser => {
-      return fetchUserOrders(validatedUser.id)
-        .then(orders => ({ user: validatedUser, orders }));
+    .then((user) => validateUser(user))
+    .then((validatedUser) => {
+      return fetchUserOrders(validatedUser.id).then((orders) => ({ user: validatedUser, orders }));
     })
-    .then(data => saveUserData(data))
-    .catch(error => handleError(error));
+    .then((data) => saveUserData(data))
+    .catch((error) => handleError(error));
 };
 
 // ✅ Async/await проще читать
@@ -469,7 +512,9 @@ const processUser = async (userId: string) => {
   }
 };
 ```
+
 **Try-catch для ошибок:**
+
 ```typescript
 const loadUserData = async (userId: string) => {
   try {
@@ -484,7 +529,9 @@ const loadUserData = async (userId: string) => {
   }
 };
 ```
+
 **Параллельное выполнение:**
+
 ```typescript
 // ❌ Плохо — последовательное выполнение (медленно)
 const loadData = async () => {
@@ -496,15 +543,13 @@ const loadData = async () => {
 
 // ✅ Хорошо — параллельное выполнение (быстро)
 const loadData = async () => {
-  const [users, posts, comments] = await Promise.all([
-    fetchUsers(),
-    fetchPosts(),
-    fetchComments()
-  ]);
+  const [users, posts, comments] = await Promise.all([fetchUsers(), fetchPosts(), fetchComments()]);
   // Всего: 1 секунда (если все запросы одинаковые)
 };
 ```
+
 **Top-level await:**
+
 ```typescript
 // В модулях ES (с type: "module")
 const config = await fetchConfig();
@@ -514,7 +559,9 @@ export { config, users };
 ```
 
 ### 2.3 Анти-паттерны
+
 **Callback hell:**
+
 ```typescript
 // ❌ Плохо — callback hell
 fetchUser(userId, (user) => {
@@ -536,7 +583,9 @@ const processUser = async (userId: string) => {
   console.log('Done');
 };
 ```
+
 **Забытый await:**
+
 ```typescript
 // ❌ Плохо — забыли await
 const saveUser = async (user: User) => {
@@ -550,7 +599,9 @@ const saveUser = async (user: User) => {
   console.log('Saved'); // Выполнится ПОСЛЕ сохранения
 };
 ```
+
 **Необработанные промисы:**
+
 ```typescript
 // ❌ Плохо
 const loadData = async () => {
@@ -563,14 +614,15 @@ const loadData = async () => {
   void fetchUsers(); // Если действительно не нужен результат
 };
 ```
+
 **Смешивание then и async/await:**
+
 ```typescript
 // ❌ Плохо — смешанный стиль
 const loadData = async () => {
   const user = await fetchUser(userId);
-  
-  return fetchOrders(user.id)
-    .then(orders => ({ user, orders })); // ❌ Смешали стили
+
+  return fetchOrders(user.id).then((orders) => ({ user, orders })); // ❌ Смешали стили
 };
 
 // ✅ Хорошо — единый стиль

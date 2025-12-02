@@ -1,12 +1,17 @@
 # Основы чистого кода
+
 **Чистый код** — это код, который легко читать, понимать и поддерживать. Он написан так, что другой разработчик (или вы через полгода) сможет быстро разобраться, что происходит, и внести изменения без страха что-то сломать.
+
 ## Зачем нужен чистый код?
+
 - **Снижает стоимость поддержки** — меньше времени на разбор "что это вообще делает"
 - **Упрощает добавление новых фич** — понятная структура = быстрая разработка
 - **Уменьшает количество багов** — явный код = меньше неожиданностей
 - **Облегчает работу в команде** — все понимают код друг друга
-- **Упрощает код-ревью** — не нужно тратить часы на разбор 
+- **Упрощает код-ревью** — не нужно тратить часы на разбор
+
 ### Цена плохого кода
+
 ```javascript
 // ❌ Плохой код
 function calc(a, b, t) {
@@ -16,7 +21,9 @@ function calc(a, b, t) {
   return a / b;
 }
 ```
+
 **Проблемы:**
+
 - Непонятные имена (`a`, `b`, `t`)
 - Магические числа (что такое `1`, `2`, `3`?)
 - Слабое сравнение (`==` вместо `===`)
@@ -55,20 +62,26 @@ function calculate(
 ```
 
 ## 1. Именование (Naming Conventions)
+
 ### 1.1 Общие принципы
+
 **Правила хорошего именования:**
+
 1. **Понятность превыше краткости** — `userAge` лучше, чем `ua`
 2. **Избегать сокращений** — `button` лучше, чем `btn` (кроме общепринятых: `id`, `url`, `api`)
 3. **Контекст важен** — `name` в контексте `User` понятно, но `n` — нет
 4. **Избегать дезинформации** — `userList` должен быть массивом, а не объектом
 
 **❌ Плохо:**
+
 ```typescript
 const d = new Date(); // ❌ Что такое d?
 const temp = getData(); // ❌ Временная переменная с неясным смыслом
 const data = fetchUsers(); // ❌ Слишком общее
 ```
+
 **✅ Хорошо:**
+
 ```typescript
 const currentDate = new Date();
 const userResponse = getData();
@@ -76,20 +89,25 @@ const users = fetchUsers();
 ```
 
 ### 1.2 Переменные
+
 **Правила:**
+
 - **camelCase** для обычных переменных
 - **UPPER_SNAKE_CASE** для констант
 - **Существительные** для данных
 - **Множественное число** для массивов
 
 **❌ Плохо:**
+
 ```typescript
 const d = 5; // ❌ Непонятно что это
 const UserName = 'John'; // ❌ Переменная не должна начинаться с большой буквы
 const user = ['John', 'Jane', 'Bob']; // ❌ Имя в единственном числе, а данные — массив
 const maxage = 100; // ❌ Непонятно, что это константа
 ```
+
 **✅ Хорошо:**
+
 ```typescript
 const daysInWeek = 7;
 const userName = 'John';
@@ -97,7 +115,9 @@ const users = ['John', 'Jane', 'Bob'];
 const MAX_AGE = 100;
 const API_ENDPOINT = 'https://api.example.com';
 ```
+
 **Контекстные имена:**
+
 ```typescript
 // ❌ Плохо — непонятно из контекста
 const process = (n: string): string => n.toUpperCase();
@@ -107,7 +127,9 @@ const formatUserName = (userName: string): string => userName.toUpperCase();
 ```
 
 ### 1.3 Функции
+
 **Правила:**
+
 - **camelCase**
 - **Глаголы** для действий
 - **get/set/is/has/should** префиксы
@@ -115,38 +137,61 @@ const formatUserName = (userName: string): string => userName.toUpperCase();
 
 **Типичные префиксы:**
 
-| Префикс | Значение | Пример |
-|---------|----------|---------|
-| `get` | Получить данные | `getUser()`, `getUserName()` |
-| `set` | Установить значение | `setUser()`, `setUserName()` |
-| `is` | Проверка boolean | `isActive()`, `isValid()` |
-| `has` | Наличие чего-то | `hasPermission()`, `hasAccess()` |
-| `should` | Условие | `shouldUpdate()`, `shouldRender()` |
-| `create` | Создать | `createUser()`, `createOrder()` |
-| `update` | Обновить | `updateUser()`, `updateProfile()` |
-| `delete` | Удалить | `deleteUser()`, `deleteOrder()` |
-| `fetch` | Загрузить данные (async) | `fetchUsers()`, `fetchPosts()` |
-| `handle` | Обработчик события | `handleClick()`, `handleSubmit()` |
-| `calculate` | Вычислить | `calculateTotal()`, `calculateTax()` |
-| `validate` | Валидация | `validateEmail()`, `validateForm()` |
-| `format` | Форматирование | `formatDate()`, `formatCurrency()` |
+| Префикс     | Значение                 | Пример                               |
+| ----------- | ------------------------ | ------------------------------------ |
+| `get`       | Получить данные          | `getUser()`, `getUserName()`         |
+| `set`       | Установить значение      | `setUser()`, `setUserName()`         |
+| `is`        | Проверка boolean         | `isActive()`, `isValid()`            |
+| `has`       | Наличие чего-то          | `hasPermission()`, `hasAccess()`     |
+| `should`    | Условие                  | `shouldUpdate()`, `shouldRender()`   |
+| `create`    | Создать                  | `createUser()`, `createOrder()`      |
+| `update`    | Обновить                 | `updateUser()`, `updateProfile()`    |
+| `delete`    | Удалить                  | `deleteUser()`, `deleteOrder()`      |
+| `fetch`     | Загрузить данные (async) | `fetchUsers()`, `fetchPosts()`       |
+| `handle`    | Обработчик события       | `handleClick()`, `handleSubmit()`    |
+| `calculate` | Вычислить                | `calculateTotal()`, `calculateTax()` |
+| `validate`  | Валидация                | `validateEmail()`, `validateForm()`  |
+| `format`    | Форматирование           | `formatDate()`, `formatCurrency()`   |
 
 **❌ Плохо:**
+
 ```typescript
-const data = () => { /*...*/ }; // ❌ Не глагол
-const process = () => { /*...*/ }; // ❌ Слишком общее
-const doStuff = () => { /*...*/ }; // ❌ Непонятно что делает
-const x = (a, b) => { /*...*/ }; // ❌ Нечитаемо
+const data = () => {
+  /*...*/
+}; // ❌ Не глагол
+const process = () => {
+  /*...*/
+}; // ❌ Слишком общее
+const doStuff = () => {
+  /*...*/
+}; // ❌ Непонятно что делает
+const x = (a, b) => {
+  /*...*/
+}; // ❌ Нечитаемо
 ```
+
 **✅ Хорошо:**
+
 ```typescript
-const getUserById = (id: string): User => { /*...*/ };
-const calculateTotalPrice = (items: Item[]): number => { /*...*/ };
-const isUserActive = (user: User): boolean => { /*...*/ };
-const hasAdminPermission = (user: User): boolean => { /*...*/ };
-const shouldRenderHeader = (): boolean => { /*...*/ };
+const getUserById = (id: string): User => {
+  /*...*/
+};
+const calculateTotalPrice = (items: Item[]): number => {
+  /*...*/
+};
+const isUserActive = (user: User): boolean => {
+  /*...*/
+};
+const hasAdminPermission = (user: User): boolean => {
+  /*...*/
+};
+const shouldRenderHeader = (): boolean => {
+  /*...*/
+};
 ```
+
 **Одна функция — одно действие:**
+
 ```typescript
 // ❌ Плохо — функция делает слишком много
 const processUserAndSendEmail = (user: User) => {
@@ -157,10 +202,18 @@ const processUserAndSendEmail = (user: User) => {
 };
 
 // ✅ Хорошо — каждая функция делает одно
-const validateUser = (user: User): boolean => { /*...*/ };
-const saveUser = (user: User): void => { /*...*/ };
-const sendWelcomeEmail = (user: User): void => { /*...*/ };
-const logUserActivity = (user: User): void => { /*...*/ };
+const validateUser = (user: User): boolean => {
+  /*...*/
+};
+const saveUser = (user: User): void => {
+  /*...*/
+};
+const sendWelcomeEmail = (user: User): void => {
+  /*...*/
+};
+const logUserActivity = (user: User): void => {
+  /*...*/
+};
 
 const onboardNewUser = (user: User): void => {
   if (!validateUser(user)) return;
@@ -171,45 +224,55 @@ const onboardNewUser = (user: User): void => {
 ```
 
 ### 1.4 Классы и компоненты
+
 **Правила:**
+
 - **PascalCase**
 - **Существительные**
 - **Описательные имена**
 
 **❌ Плохо:**
+
 ```typescript
-class user { } // ❌ Начинается с маленькой буквы
-class UserManager { } // ❌ Слишком общий суффикс
-class UserUtils { } // ❌ "Utils" — признак плохой абстракции
-class DataHandler { } // ❌ Непонятно что обрабатывает
+class user {} // ❌ Начинается с маленькой буквы
+class UserManager {} // ❌ Слишком общий суффикс
+class UserUtils {} // ❌ "Utils" — признак плохой абстракции
+class DataHandler {} // ❌ Непонятно что обрабатывает
 ```
+
 **✅ Хорошо:**
+
 ```typescript
-class User { }
-class UserRepository { } // Конкретная ответственность
-class UserValidator { }
-class EmailService { }
-class PaymentProcessor { }
+class User {}
+class UserRepository {} // Конкретная ответственность
+class UserValidator {}
+class EmailService {}
+class PaymentProcessor {}
 
 // React компоненты
-const UserProfile = () => { };
-const ProductCard = () => { };
-const NavigationMenu = () => { };
+const UserProfile = () => {};
+const ProductCard = () => {};
+const NavigationMenu = () => {};
 ```
 
 ### 1.5 Boolean переменные
+
 **Правила:**
+
 - **is/has/should/can** префиксы
 - **Утвердительная форма**
 - **Понятный вопрос**
 
 **❌ Плохо:**
+
 ```typescript
 const active = true; // ❌ Не ясно что это boolean
 const notDisabled = false; // ❌ Двойное отрицание
 const flag = true; // ❌ Непонятно что за флаг
 ```
+
 **✅ Хорошо:**
+
 ```typescript
 const isActive = true;
 const isDisabled = false;
@@ -219,7 +282,9 @@ const canDelete = true;
 const isLoading = false;
 const hasErrors = true;
 ```
+
 **Примеры в контексте:**
+
 ```typescript
 // User
 const isUserLoggedIn = true;
@@ -238,29 +303,32 @@ const canSubmitForm = true;
 ```
 
 ### 1.6 Анти-паттерны именования
+
 **Избегайте:**
 
-| Плохо | Почему плохо | Хорошо |
-|-------|--------------|--------|
-| `temp` | Непонятно что временного | `currentUser`, `cachedData` |
-| `data` | Слишком общее | `users`, `products`, `orders` |
-| `info` | Неинформативно | `userDetails`, `orderSummary` |
-| `obj` | Непонятно что за объект | `user`, `product`, `order` |
-| `arr` | Непонятно что в массиве | `users`, `items`, `products` |
-| `flag` | Непонятно что за флаг | `isActive`, `shouldUpdate` |
-| `x`, `y`, `z` | Однобуквенные (кроме циклов) | Полное имя |
-| `userObj` | Венгерская нотация | `user` (тип и так виден) |
-| `strName` | Венгерская нотация | `userName` |
+| Плохо         | Почему плохо                 | Хорошо                        |
+| ------------- | ---------------------------- | ----------------------------- |
+| `temp`        | Непонятно что временного     | `currentUser`, `cachedData`   |
+| `data`        | Слишком общее                | `users`, `products`, `orders` |
+| `info`        | Неинформативно               | `userDetails`, `orderSummary` |
+| `obj`         | Непонятно что за объект      | `user`, `product`, `order`    |
+| `arr`         | Непонятно что в массиве      | `users`, `items`, `products`  |
+| `flag`        | Непонятно что за флаг        | `isActive`, `shouldUpdate`    |
+| `x`, `y`, `z` | Однобуквенные (кроме циклов) | Полное имя                    |
+| `userObj`     | Венгерская нотация           | `user` (тип и так виден)      |
+| `strName`     | Венгерская нотация           | `userName`                    |
 
 **Исключения:**
+
 - `i`, `j`, `k` — в коротких циклах
 - `e` — для event в обработчиках
 - `_` — для неиспользуемых параметров
+
 ```typescript
 // ✅ Допустимо
-for (let i = 0; i < items.length; i++) { }
+for (let i = 0; i < items.length; i++) {}
 
-array.forEach((_, index) => { }); // Не используем элемент
+array.forEach((_, index) => {}); // Не используем элемент
 
 button.addEventListener('click', (e) => {
   e.preventDefault();
@@ -268,14 +336,18 @@ button.addEventListener('click', (e) => {
 ```
 
 ## 2. Функции и методы
+
 ### 2.1 Размер функции
+
 **Правило:** Функция должна делать ОДНО действие.
 **Оптимальный размер:**
+
 - **5-15 строк** — идеально
 - **20-30 строк** — приемлемо
 - **Больше 30** — подумать о разбиении
 
 **❌ Плохо — функция делает слишком много:**
+
 ```typescript
 const processOrder = (order: Order) => {
   // Валидация (5 строк)
@@ -285,7 +357,7 @@ const processOrder = (order: Order) => {
 
   // Вычисление цены (10 строк)
   let total = 0;
-  order.items.forEach(item => {
+  order.items.forEach((item) => {
     const discount = item.hasDiscount ? item.price * 0.1 : 0;
     const tax = (item.price - discount) * 0.2;
     total += item.price - discount + tax;
@@ -299,7 +371,7 @@ const processOrder = (order: Order) => {
   database.save({
     userId: order.user.id,
     total,
-    date: new Date()
+    date: new Date(),
   });
 
   // Логирование (3 строки)
@@ -308,7 +380,9 @@ const processOrder = (order: Order) => {
   return total;
 };
 ```
+
 **✅ Хорошо — разбито на маленькие функции:**
+
 ```typescript
 const validateOrder = (order: Order): void => {
   if (!order.items?.length) throw new Error('Order must contain items');
@@ -335,7 +409,7 @@ const saveOrderToDatabase = (order: Order, total: number): void => {
   database.save({
     userId: order.user.id,
     total,
-    date: new Date()
+    date: new Date(),
   });
 };
 
@@ -346,28 +420,33 @@ const logOrderProcessed = (user: User): void => {
 // Главная функция — оркестратор
 const processOrder = (order: Order): number => {
   validateOrder(order);
-  
+
   const total = calculateOrderTotal(order.items);
-  
+
   sendOrderConfirmation(order.user, total);
   saveOrderToDatabase(order, total);
   logOrderProcessed(order.user);
-  
+
   return total;
 };
 ```
+
 **Когда разбивать функцию:**
+
 - Видно несколько **логических блоков** (валидация, вычисление, сохранение)
 - Функция делает больше одной вещи
 - Сложно понять с первого взгляда
 
 ### 2.2 Параметры функции
+
 **Правило:**
+
 - **0-2 параметра** — идеально
 - **3 параметра** — приемлемо
 - **Больше 3** — использовать объект параметров
 
 **❌ Плохо — слишком много параметров:**
+
 ```typescript
 const createUser = (
   firstName: string,
@@ -384,7 +463,9 @@ const createUser = (
 // Использование — легко ошибиться в порядке
 createUser('John', 'Doe', 'john@example.com', 30, '123 St', '+123456', 'admin');
 ```
+
 **✅ Хорошо — объект параметров:**
+
 ```typescript
 interface CreateUserParams {
   firstName: string;
@@ -410,16 +491,24 @@ createUser({
   age: 30,
   address: '123 St',
   phone: '+123456',
-  role: 'admin'
+  role: 'admin',
 });
 ```
+
 **Избегать boolean флагов:**
+
 ```typescript
 // ❌ Плохо
 const renderPage = (showHeader: boolean, showFooter: boolean, showSidebar: boolean) => {
-  if (showHeader) { /* ... */ }
-  if (showFooter) { /* ... */ }
-  if (showSidebar) { /* ... */ }
+  if (showHeader) {
+    /* ... */
+  }
+  if (showFooter) {
+    /* ... */
+  }
+  if (showSidebar) {
+    /* ... */
+  }
 };
 
 renderPage(true, false, true); // ❌ Непонятно что значат эти флаги
@@ -432,18 +521,26 @@ interface PageLayout {
 }
 
 const renderPage = (layout: PageLayout) => {
-  if (layout.showHeader) { /* ... */ }
-  if (layout.showFooter) { /* ... */ }
-  if (layout.showSidebar) { /* ... */ }
+  if (layout.showHeader) {
+    /* ... */
+  }
+  if (layout.showFooter) {
+    /* ... */
+  }
+  if (layout.showSidebar) {
+    /* ... */
+  }
 };
 
 renderPage({
   showHeader: true,
   showFooter: false,
-  showSidebar: true
+  showSidebar: true,
 }); // ✅ Всё понятно
 ```
+
 **Destructuring параметров:**
+
 ```typescript
 // ✅ Хорошая практика
 const createUser = ({ firstName, lastName, email }: CreateUserParams): User => ({
@@ -451,18 +548,21 @@ const createUser = ({ firstName, lastName, email }: CreateUserParams): User => (
   firstName,
   lastName,
   email,
-  createdAt: new Date()
+  createdAt: new Date(),
 });
 ```
 
 ### 2.3 Побочные эффекты (Side Effects)
+
 **Определение:** Побочный эффект — это любое изменение состояния вне функции (мутация переменных, запись в БД, console.log, изменение DOM).
 **Чистые функции (Pure Functions):**
+
 - Не имеют побочных эффектов
 - Всегда возвращают одинаковый результат для одинаковых входных данных
 - Легко тестировать
 
 **❌ Плохо — скрытые побочные эффекты:**
+
 ```typescript
 let totalPrice = 0; // Глобальная переменная
 
@@ -475,16 +575,19 @@ const addItemPrice = (price: number) => {
 addItemPrice(10); // totalPrice = 10
 addItemPrice(20); // totalPrice = 30 — функция зависит от глобального состояния!
 ```
+
 **✅ Хорошо — чистая функция:**
+
 ```typescript
-const addItemPrice = (currentTotal: number, price: number): number =>
-  currentTotal + price; // ✅ Нет побочных эффектов
+const addItemPrice = (currentTotal: number, price: number): number => currentTotal + price; // ✅ Нет побочных эффектов
 
 let totalPrice = 0;
 totalPrice = addItemPrice(totalPrice, 10); // 10
 totalPrice = addItemPrice(totalPrice, 20); // 30
 ```
+
 **Когда побочные эффекты неизбежны:**
+
 ```typescript
 // Побочные эффекты явно обозначены в названии
 const saveUserToDatabase = async (user: User): Promise<void> => {
@@ -499,14 +602,16 @@ const sendEmail = (to: string, body: string): void => {
   emailService.send(to, body); // ❌ Побочный эффект, но он явный
 };
 ```
+
 **Как изолировать побочные эффекты:**
+
 1. **Выносить в отдельные функции** с явным названием
 2. **Разделять "вычисление" и "действие"**
 3. **Делать чистые функции** для бизнес-логики
+
 ```typescript
 // ✅ Разделение: чистая функция + функция с side effect
-const calculateTotal = (items: Item[]): number =>
-  items.reduce((sum, item) => sum + item.price, 0);
+const calculateTotal = (items: Item[]): number => items.reduce((sum, item) => sum + item.price, 0);
 
 const saveOrder = async (order: Order): Promise<void> => {
   const total = calculateTotal(order.items); // Чистая функция
@@ -515,34 +620,37 @@ const saveOrder = async (order: Order): Promise<void> => {
 ```
 
 ### 2.4 Single Responsibility для функций
+
 **Правило:** Каждая функция должна делать одну вещь и делать её хорошо.
 
 **❌ Плохо — функция делает несколько вещей:**
+
 ```typescript
 const processUserData = (userId: string) => {
   // 1. Загрузка
   const user = database.getUser(userId);
-  
+
   // 2. Валидация
   if (!user.email) throw new Error('No email');
-  
+
   // 3. Вычисление
   const age = calculateAge(user.birthDate);
-  
+
   // 4. Форматирование
   const formatted = `${user.firstName} ${user.lastName}, ${age} years old`;
-  
+
   // 5. Сохранение
   cache.set(userId, formatted);
-  
+
   // 6. Возврат
   return formatted;
 };
 ```
+
 **✅ Хорошо — каждая функция делает одно:**
+
 ```typescript
-const getUserById = (userId: string): User =>
-  database.getUser(userId);
+const getUserById = (userId: string): User => database.getUser(userId);
 
 const validateUserEmail = (user: User): void => {
   if (!user.email) {
@@ -566,20 +674,22 @@ const cacheUserInfo = (userId: string, info: string): void => {
 const processUserData = (userId: string): string => {
   const user = getUserById(userId);
   validateUserEmail(user);
-  
+
   const age = calculateUserAge(user.birthDate);
   const formatted = formatUserInfo(user, age);
-  
+
   cacheUserInfo(userId, formatted);
-  
+
   return formatted;
 };
 ```
 
 ### 2.5 Возврат значений
+
 **Early Return Pattern**
 
 **❌ Плохо — глубокая вложенность:**
+
 ```typescript
 const getDiscount = (user: User): number => {
   if (user) {
@@ -597,7 +707,9 @@ const getDiscount = (user: User): number => {
   }
 };
 ```
+
 **✅ Хорошо — early return:**
+
 ```typescript
 const getDiscount = (user: User | null): number => {
   if (!user) return 0;
@@ -606,7 +718,9 @@ const getDiscount = (user: User | null): number => {
   return 0.1;
 };
 ```
+
 **Guard Clauses**
+
 ```typescript
 const processPayment = (amount: number, user: User): void => {
   // Guard clauses в начале
@@ -626,7 +740,9 @@ const processPayment = (amount: number, user: User): void => {
   chargeUser(user, amount);
 };
 ```
+
 **Один тип возврата:**
+
 ```typescript
 // ❌ Плохо — разные типы возврата
 const getUser = (id: string): User | null | undefined | false => {
@@ -645,22 +761,28 @@ const getUser = (id: string): User | null => {
 ```
 
 ### 2.6 Стрелочные функции vs обычные
+
 **Когда использовать arrow functions:**
 
 ✅ **Коллбэки:**
+
 ```typescript
 const numbers = [1, 2, 3, 4];
 
 // ✅ Хорошо
-const doubled = numbers.map(n => n * 2);
-const evens = numbers.filter(n => n % 2 === 0);
+const doubled = numbers.map((n) => n * 2);
+const evens = numbers.filter((n) => n % 2 === 0);
 ```
+
 ✅ **Короткие функции:**
+
 ```typescript
 const add = (a: number, b: number) => a + b;
 const isEven = (n: number) => n % 2 === 0;
 ```
+
 ✅ **Методы в React:**
+
 ```typescript
 const Component = () => {
   // ✅ Не нужно биндить this
@@ -671,25 +793,29 @@ const Component = () => {
   return <button onClick={handleClick}>Click</button>;
 };
 ```
+
 **Когда использовать обычные функции:**
 
 ❌ **Методы объектов (если нужен `this`):**
+
 ```typescript
 const user = {
   name: 'John',
-  greet: function() {
+  greet: function () {
     console.log(`Hello, ${this.name}`); // ✅ this работает
-  }
+  },
 };
 
 const userArrow = {
   name: 'John',
   greet: () => {
     console.log(`Hello, ${this.name}`); // ❌ this не работает
-  }
+  },
 };
 ```
+
 ✅ **Конструкторы:**
+
 ```typescript
 function Person(name: string) {
   this.name = name;
@@ -702,8 +828,11 @@ const PersonArrow = (name: string) => {
 ```
 
 ## 3. Комментарии и документация
+
 ### 3.1 Когда НЕ нужны комментарии
+
 **Самодокументируемый код:**
+
 ```typescript
 // ❌ Плохо — комментарий описывает очевидное
 // Increment counter
@@ -711,7 +840,8 @@ counter++;
 
 // ❌ Плохо — комментарий дублирует код
 // Check if user is active
-if (user.isActive) { }
+if (user.isActive) {
+}
 
 // ❌ Плохо — комментарий вместо нормального имени
 // Days in a week
@@ -724,7 +854,9 @@ if (user.isActive) {
   activateUserAccount(user);
 }
 ```
+
 **Закомментированный код — удалять!**
+
 ```typescript
 // ❌ Плохо
 const calculateTotal = (items) => {
@@ -735,31 +867,34 @@ const calculateTotal = (items) => {
 };
 
 // ✅ Хорошо — нет закомментированного кода
-const calculateTotal = (items: Item[]): number =>
-  items.reduce((sum, item) => sum + item.price, 0);
+const calculateTotal = (items: Item[]): number => items.reduce((sum, item) => sum + item.price, 0);
 ```
 
 ### 3.2 Когда комментарии полезны
+
 **1. Сложная бизнес-логика:**
+
 ```typescript
 // ✅ Хорошо — объясняем "почему"
 const calculateShippingCost = (order: Order): number => {
   const baseRate = 10;
-  
+
   // Применяем 20% скидку для заказов свыше $100 согласно маркетинговой кампании Q4 2024
   if (order.total > 100) {
     return baseRate * 0.8;
   }
-  
+
   return baseRate;
 };
 ```
+
 **2. Неочевидные решения:**
+
 ```typescript
 // ✅ Объясняем почему выбрано именно это решение
 const debounce = (fn: Function, delay: number) => {
   let timeoutId: NodeJS.Timeout;
-  
+
   return (...args: unknown[]) => {
     // Очищаем предыдущий таймер вместо проверки времени
     // потому что clearTimeout эффективнее по памяти
@@ -768,7 +903,9 @@ const debounce = (fn: Function, delay: number) => {
   };
 };
 ```
+
 **3. Workarounds и хаки:**
+
 ```typescript
 // ✅ Объясняем временное решение
 const parseDate = (dateString: string): Date => {
@@ -778,7 +915,9 @@ const parseDate = (dateString: string): Date => {
   return parse(dateString, 'yyyy-MM-dd', new Date());
 };
 ```
+
 **4. Предупреждения:**
+
 ```typescript
 // ✅ Предупреждаем о важных деталях
 const deleteUser = (userId: string): Promise<void> => {
@@ -789,56 +928,57 @@ const deleteUser = (userId: string): Promise<void> => {
 ```
 
 ### 3.3 JSDoc
+
 **Когда использовать:**
+
 - Публичное API
 - Библиотеки и пакеты
 - Сложные функции
+
 ```typescript
 /**
  * Вычисляет итоговую стоимость заказа с учётом налогов и скидок
- * 
+ *
  * @param items - Массив товаров в заказе
  * @param taxRate - Ставка налога (от 0 до 1)
  * @param discount - Скидка в процентах (от 0 до 100)
  * @returns Итоговая стоимость заказа
- * 
+ *
  * @example
  * const total = calculateOrderTotal(
  *   [{ price: 100 }, { price: 200 }],
  *   0.2,
  *   10
  * ); // 270
- * 
+ *
  * @throws {Error} Если массив товаров пустой
  */
-const calculateOrderTotal = (
-  items: Item[],
-  taxRate: number,
-  discount: number
-): number => {
+const calculateOrderTotal = (items: Item[], taxRate: number, discount: number): number => {
   if (items.length === 0) {
     throw new Error('Order must contain at least one item');
   }
-  
+
   const subtotal = items.reduce((sum, item) => sum + item.price, 0);
   const discountAmount = subtotal * (discount / 100);
   const taxAmount = (subtotal - discountAmount) * taxRate;
-  
+
   return subtotal - discountAmount + taxAmount;
 };
 ```
+
 **Основные теги JSDoc:**
 
-| Тег | Описание |
-|-----|----------|
-| `@param` | Параметры функции |
-| `@returns` | Что возвращает |
-| `@throws` | Какие ошибки может выбросить |
-| `@example` | Пример использования |
-| `@deprecated` | Устаревший метод |
-| `@see` | Ссылка на связанный код |
+| Тег           | Описание                     |
+| ------------- | ---------------------------- |
+| `@param`      | Параметры функции            |
+| `@returns`    | Что возвращает               |
+| `@throws`     | Какие ошибки может выбросить |
+| `@example`    | Пример использования         |
+| `@deprecated` | Устаревший метод             |
+| `@see`        | Ссылка на связанный код      |
 
 ### 3.4 TODO/FIXME
+
 ```typescript
 // TODO: Добавить валидацию email адреса (Olga, 2024-11-20)
 const saveUser = (user: User) => {
@@ -850,7 +990,7 @@ useEffect(() => {
   const interval = setInterval(() => {
     fetchData();
   }, 1000);
-  
+
   // Нужно добавить cleanup
 }, []);
 
@@ -866,6 +1006,7 @@ const DEBUG_MODE = true;
 ```
 
 **Формат:**
+
 ```
 // TODO: Что нужно сделать (Автор, Дата)
 // FIXME: Что сломано (приоритет)
@@ -884,7 +1025,9 @@ if (user.isActive) {
   sendEmail(user.email);
 }
 ```
+
 **✅ Хорошо — комментарий объясняет ПОЧЕМУ:**
+
 ```typescript
 // Отправляем email только активным пользователям,
 // потому что неактивные могли отписаться от рассылки
@@ -892,7 +1035,9 @@ if (user.isActive) {
   sendEmail(user.email);
 }
 ```
+
 **✅ Ещё лучше — код объясняет сам себя:**
+
 ```typescript
 const shouldSendEmail = (user: User): boolean => {
   // Неактивные пользователи отписались от рассылки
@@ -905,9 +1050,11 @@ if (shouldSendEmail(user)) {
 ```
 
 ## 4. Обработка ошибок
+
 ### 4.1 Try-Catch правила
 
 **❌ Плохо — игнорирование ошибок:**
+
 ```typescript
 try {
   const data = JSON.parse(jsonString);
@@ -915,7 +1062,9 @@ try {
   // ❌ Пустой catch — ошибка проглочена
 }
 ```
+
 **✅ Хорошо — обработка ошибки:**
+
 ```typescript
 try {
   const data = JSON.parse(jsonString);
@@ -925,7 +1074,9 @@ try {
   throw new Error('Invalid JSON format');
 }
 ```
+
 **Конкретные catch блоки:**
+
 ```typescript
 try {
   await saveUser(user);
@@ -940,7 +1091,9 @@ try {
   }
 }
 ```
+
 **Finally для cleanup:**
+
 ```typescript
 let connection;
 
@@ -956,7 +1109,9 @@ try {
   }
 }
 ```
+
 **❌ Не использовать как flow control:**
+
 ```typescript
 // ❌ Плохо — try-catch для контроля потока
 try {
@@ -974,7 +1129,9 @@ const getUser = (userId: string): User | null => {
 ```
 
 ### 4.2 Fail Fast принцип
+
 **Проверка на входе:**
+
 ```typescript
 const calculateDiscount = (price: number, discountPercent: number): number => {
   // ✅ Fail Fast — проверки в начале
@@ -989,7 +1146,9 @@ const calculateDiscount = (price: number, discountPercent: number): number => {
   return price * (discountPercent / 100);
 };
 ```
+
 **Ранний return при ошибке:**
+
 ```typescript
 const processPayment = (order: Order): PaymentResult => {
   // ✅ Ранние выходы при проблемах
@@ -1010,7 +1169,9 @@ const processPayment = (order: Order): PaymentResult => {
   return result;
 };
 ```
+
 **Guard clauses:**
+
 ```typescript
 const sendEmail = (email: string, subject: string, body: string): void => {
   // Guard clauses
@@ -1025,7 +1186,9 @@ const sendEmail = (email: string, subject: string, body: string): void => {
 ```
 
 ### 4.3 Defensive Programming
+
 **Проверка null/undefined:**
+
 ```typescript
 // ❌ Плохо — может упасть
 const getUserName = (user: User) => {
@@ -1040,10 +1203,11 @@ const getUserName = (user: User | null): string => {
 };
 
 // ✅ Ещё лучше — optional chaining
-const getUserName = (user: User | null): string =>
-  user?.profile?.firstName ?? 'Anonymous';
+const getUserName = (user: User | null): string => user?.profile?.firstName ?? 'Anonymous';
 ```
+
 **Валидация типов:**
+
 ```typescript
 const calculateTotal = (items: unknown): number => {
   // ✅ Проверяем тип
@@ -1059,7 +1223,9 @@ const calculateTotal = (items: unknown): number => {
   }, 0);
 };
 ```
+
 **Граничные случаи:**
+
 ```typescript
 const divide = (a: number, b: number): number => {
   // ✅ Проверяем граничный случай
@@ -1075,7 +1241,9 @@ const divide = (a: number, b: number): number => {
   return a / b;
 };
 ```
+
 **Optional chaining (?.) и Nullish coalescing (??):**
+
 ```typescript
 // ❌ Плохо — длинная проверка
 const city = user && user.address && user.address.city ? user.address.city : 'Unknown';

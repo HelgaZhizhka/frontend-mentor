@@ -1,5 +1,7 @@
 # Дополнительные практики
+
 ## 1. Стрелочные функции для методов
+
 **✅ Хорошая практика:**
 
 ```typescript
@@ -18,7 +20,9 @@ const doubled = numbers.map(n => n * 2);
 ```
 
 ## 2. Осторожно с setTimeout и setInterval
+
 **Проблемы:**
+
 - Не гарантируют точность
 - Могут вызывать утечки памяти
 - Продолжают работать после размонтирования (React)
@@ -32,7 +36,9 @@ useEffect(() => {
   }, 1000);
 }, []); // ❌ Утечка памяти — интервал не очищается
 ```
+
 **✅ Хорошо:**
+
 ```typescript
 useEffect(() => {
   const interval = setInterval(() => {
@@ -42,11 +48,12 @@ useEffect(() => {
   return () => clearInterval(interval); // ✅ Cleanup
 }, []);
 ```
+
 **Альтернативы:**
+
 ```typescript
 // Вместо setTimeout — async/await + delay
-const delay = (ms: number) =>
-  new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const run = async () => {
   await delay(2000);
@@ -58,5 +65,4 @@ const tick = () => {
   console.log('Frame');
   requestAnimationFrame(tick);
 };
-
 ```
