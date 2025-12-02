@@ -16,7 +16,7 @@ export default tseslint.config(
   { ignores: ['node_modules', 'dist', 'coverage', 'build'] },
   {
     linterOptions: {
-      noInlineConfig: false, // Allow inline config for exceptions
+      noInlineConfig: true,
       reportUnusedDisableDirectives: 'error',
     },
   },
@@ -125,14 +125,22 @@ export default tseslint.config(
         { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
       ],
 
+      // No type assertions (as, <Type>)
+      '@typescript-eslint/consistent-type-assertions': [
+        'error',
+        {
+          assertionStyle: 'never', // Forbids 'as' and '<Type>' assertions
+        },
+      ],
+
       // Class/interface member ordering
       '@typescript-eslint/member-ordering': 'error',
 
       // Use Record instead of object/{}
       '@typescript-eslint/consistent-indexed-object-style': ['error', 'record'],
 
-      // Prefer interface over type
-      '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+      // Prefer type over interface 
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
 
       // ==============================================
       // FUNCTIONS
@@ -174,6 +182,9 @@ export default tseslint.config(
       // Dead code (no-unused-vars configured below in IMPORTS section)
       'no-unreachable': 'error',
       'no-unreachable-loop': 'error',
+
+      // Class methods should use 'this'
+      'class-methods-use-this': 'error',
 
       // Warning comments (TODO, FIXME, HACK)
       'no-warning-comments': [
@@ -361,7 +372,19 @@ export default tseslint.config(
       'unicorn/no-null': 'off', // null is acceptable in TypeScript projects
       'unicorn/number-literal-case': 'off', // Uppercase not always needed for hex/bin literals
       'unicorn/numeric-separators-style': 'off', // Numeric separators are optional
-      'unicorn/prevent-abbreviations': 'off', // Abbreviations like id, api, url are acceptable
+      'unicorn/prevent-abbreviations': [
+        'error',
+        {
+          allowList: {
+            acc: true, // accumulator in reduce
+            env: true, // environment variables
+            i: true, // loop index
+            j: true, // nested loop index
+            props: true, // React props
+            Props: true, // React Props type
+          },
+        },
+      ],
       'unicorn/prefer-top-level-await': 'off', // Not always applicable in components and functions
 
       // Prefer modern syntax
