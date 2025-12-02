@@ -99,6 +99,8 @@ pnpm install
 - Import/export правила
 - Accessibility (jsx-a11y)
 
+Конфигурация линтера приведена в соответствии с требованиями RS School
+
 ### Где нужен code review
 
 - Семантика именования
