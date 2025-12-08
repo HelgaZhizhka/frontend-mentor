@@ -28,6 +28,8 @@
 | **Проводишь код-ревью?**                      | → [Критерии и примеры](./clean-code/index.md) |
 | **Нужен линтер для автоматической проверки?** | → [ESLint конфигурация](./LINTER-README.md)   |
 
+[Ссылка на документацию по код-ревью для ментора RS School](https://github.com/rolling-scopes-school/docs/blob/master/docs/ru/pull-request-review-process.md)
+
 ## Содержание репозитория
 
 ### Чистый код и код-ревью
@@ -45,12 +47,15 @@
 
 #### Технологии
 
+- [HTML Best Practices](./clean-code/HTML.md) — семантика, доступность, alt текст, kebab-case
+- [CSS Best Practices](./clean-code/CSS.md) — вложенность селекторов, единицы измерения, CSS переменные
 - [React Best Practices](./clean-code/React.md) — структура проекта, хуки, оптимизация
 - [TypeScript Best Practices](./clean-code/TypeScript.md) — типизация, type guards, константы
 
 #### Для код-ревью
 
 - [Clean Code Checklist](./clean-code/Check-List.md) — быстрый чеклист для проверки кода
+- [UI/UX Checklist](./clean-code/UI-UX.md) — интерактивность, responsive, доступность
 
 **[→ Перейти к полному содержанию](./clean-code/index.md)**
 
