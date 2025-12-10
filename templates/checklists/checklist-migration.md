@@ -22,6 +22,14 @@
 - [ ] Название PR ясное и информативное
 - [ ] Описание PR структурировано и читаемо
 
+#### Коммиты НЕ содержат:
+
+- [ ] Закомментированный код
+- [ ] Лишние файлы (node_modules, .env и т.д.)
+- [ ] Auto-generated код
+
+[Требования к Pull Request в RS School](https://github.com/rolling-scopes-school/docs/blob/master/docs/ru/mentoring/pull-request-review-process.md#%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-pull-request-pr)
+
 ### 1.2 История коммитов (10 очков)
 
 #### Коммиты следуют Conventional Commits:
@@ -49,11 +57,7 @@ fix: adjust layout for firefox
 docs: update readme with setup instructions
 ```
 
-#### Коммиты НЕ содержат:
-
-- [ ] Закомментированный код
-- [ ] Лишние файлы (node_modules, .env и т.д.)
-- [ ] Auto-generated код
+[Требования к комитов в RS School](https://rs.school/docs/en/git-convention)
 
 ## 2. КАЧЕСТВО КОДА (100 очков)
 

@@ -280,7 +280,7 @@
 }
 
 .submit-button {
-  text-transform: uppercase; 
+  text-transform: uppercase;
 }
 
 .main-nav a {
