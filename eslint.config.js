@@ -160,6 +160,16 @@ export default tseslint.config(
         },
       ],
 
+      // Maximum file length (400 lines)
+      'max-lines': [
+        'warn',
+        {
+          max: 400,
+          skipBlankLines: true,
+          skipComments: true,
+        },
+      ],
+
       // Maximum nesting depth (3 levels)
       'max-depth': ['error', 3],
 

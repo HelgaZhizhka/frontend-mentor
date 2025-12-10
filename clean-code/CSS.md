@@ -45,7 +45,7 @@ header nav ul li a span {
 }
 ```
 
-**Хорошо (≤2 уровня):**
+**✅ Хорошо (≤2 уровня):**
 
 ```css
 /* Используй классы вместо вложенности */
@@ -152,7 +152,7 @@ header nav ul li a span {
 - **Каскадные** (можно переопределить локально)
 - Поддержка **media queries**
 
-**Хорошо:**
+**✅ Хорошо:**
 
 ```css
 :root {
@@ -204,7 +204,7 @@ const primaryColor = getComputedStyle(document.documentElement).getPropertyValue
 
 ### 5.1 Mobile-first подход
 
-**Плохо (desktop-first):**
+**❌ Плохо (desktop-first):**
 
 ```css
 .container {
@@ -218,7 +218,7 @@ const primaryColor = getComputedStyle(document.documentElement).getPropertyValue
 }
 ```
 
-**Хорошо (mobile-first):**
+**✅ Хорошо (mobile-first):**
 
 ```css
 .container {
@@ -266,9 +266,9 @@ const primaryColor = getComputedStyle(document.documentElement).getPropertyValue
 
 ## 6. Производительность
 
-### 7.1 Избегай дорогих свойств
+### 6.1 Избегай дорогих свойств
 
-**Плохо (triggers reflow):**
+**❌ Плохо (triggers reflow):**
 
 ```css
 .element {
@@ -289,7 +289,7 @@ const primaryColor = getComputedStyle(document.documentElement).getPropertyValue
 }
 ```
 
-**Хорошо (GPU acceleration):**
+**✅ Хорошо (GPU acceleration):**
 
 ```css
 .element {
@@ -312,7 +312,7 @@ const primaryColor = getComputedStyle(document.documentElement).getPropertyValue
 
 ### 6.2 Оптимизация селекторов
 
-**Плохо (медленные селекторы):**
+**❌ Плохо (медленные селекторы):**
 
 ```css
 /* Универсальный селектор */
@@ -331,7 +331,7 @@ div > ul > li > a > span {
 }
 ```
 
-**Хорошо (быстрые селекторы):**
+**✅ Хорошо (быстрые селекторы):**
 
 ```css
 /* Сброс только для нужных элементов */

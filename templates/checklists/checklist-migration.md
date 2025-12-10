@@ -55,7 +55,7 @@ docs: update readme with setup instructions
 - [ ] Лишние файлы (node_modules, .env и т.д.)
 - [ ] Auto-generated код
 
-## 2 КАЧЕСТВО КОДА (100 очков)
+## 2. КАЧЕСТВО КОДА (100 очков)
 
 ### 2.1 Полная миграция на TypeScript (50 очков)
 
@@ -68,11 +68,11 @@ docs: update readme with setup instructions
 
 - [ ] Используются Generics (в функциях / в классах / для обработки данных API)
 
-#### 2.1.3 Object Types - Интерфейсы и Types и Union Types (10 очков)
+#### 2.1.3 Object Types - Interfaces, Types, Union Types (10 очков)
 
 - [ ] Созданы **интерфейсы для News API**
 - [ ] Созданы интерфейсы для внутренних объектов (фильтры, параметры)
-- [ ] Используются **Utility Types** (Partial, Pick, Readonly и/или другие) и **Union Types**, где необходимо.
+- [ ] Используются **Union Types**, где необходимо.
 
 #### 2.1.4 Классы и модификаторы доступа (10 очков)
 
@@ -106,7 +106,7 @@ docs: update readme with setup instructions
 
 - [ ] **Webpack успешно собирает проект без ошибок** `npm run build`
 
-## РАЗДЕЛ 3: ДИЗАЙН И ФУНКЦИОНАЛЬНОСТЬ (50 очков)
+## 3. ДИЗАЙН И ФУНКЦИОНАЛЬНОСТЬ (50 очков)
 
 ### 3.1 Адаптивный макет (10 очков)
 

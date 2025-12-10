@@ -13,7 +13,7 @@
 
 ### 1.2 Основные семантические теги
 
-**Плохо (div-soup):**
+**❌ Плохо (div-soup):**
 
 ```html
 <div class="header">
@@ -35,7 +35,7 @@
 </div>
 ```
 
-**Хорошо (семантическая разметка):**
+**✅ Хорошо (семантическая разметка):**
 
 ```html
 <header>
@@ -69,7 +69,7 @@
 | `<aside>`   | Дополнительный контент     | Сайдбар, виджеты                    |
 | `<footer>`  | Подвал страницы/секции     | Копирайт, контакты                  |
 
-**Плохо:**
+**❌ Плохо:**
 
 ```html
 <!-- Множественные <main> -->
@@ -85,7 +85,7 @@
 <article class="button">Click me</article>
 ```
 
-**Хорошо:**
+**✅ Хорошо:**
 
 ```html
 <!-- Только ОДИН <main> -->
@@ -119,7 +119,7 @@
 
 ### 2.2 Правила написания `alt`
 
-**Плохо:**
+**❌ Плохо:**
 
 ```html
 <!-- Пустой alt -->
@@ -137,7 +137,7 @@
 />
 ```
 
-**Хорошо:**
+**✅ Хорошо:**
 
 ```html
 <!-- Описательный и краткий alt -->
@@ -161,13 +161,13 @@
 - Браузер резервирует место до загрузки изображения
 - Улучшает **Core Web Vitals** (метрики производительности)
 
-**Плохо:**
+**❌ Плохо:**
 
 ```html
 <img src="photo.jpg" alt="Photo" />
 ```
 
-**Хорошо:**
+**✅ Хорошо:**
 
 ```html
 <img src="photo.jpg" alt="Photo" width="800" height="600" />
@@ -233,6 +233,61 @@
 </div>
 ```
 
+### 3.3 Uppercase текст через CSS, не HTML
+
+**Почему важно:**
+
+- **Разделение ответственности** — HTML для структуры, CSS для представления
+- **Гибкость** — легко изменить стиль без правки HTML
+- **Доступность** — screen readers читают текст правильно
+- **Переиспользование** — один CSS класс вместо множества изменений в HTML
+
+**❌ Плохо — uppercase в HTML:**
+
+```html
+<!-- Плохо: текст в верхнем регистре прямо в HTML -->
+<h1>NEWS API PROJECT</h1>
+<button>SUBMIT</button>
+<nav>
+  <a href="#home">HOME</a>
+  <a href="#about">ABOUT</a>
+  <a href="#contact">CONTACT</a>
+</nav>
+```
+
+**Проблемы:**
+
+- Screen readers могут произносить каждую букву отдельно ("N-E-W-S")
+- Сложно изменить стиль (нужно править каждый элемент в HTML)
+- Нарушение разделения ответственности
+
+**✅ Хорошо — uppercase через CSS:**
+
+```html
+<!-- HTML с обычным текстом -->
+<h1 class="page-title">News API Project</h1>
+<button class="submit-button">Submit</button>
+<nav class="main-nav">
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</nav>
+```
+
+```css
+.page-title {
+  text-transform: uppercase;
+}
+
+.submit-button {
+  text-transform: uppercase; 
+}
+
+.main-nav a {
+  text-transform: uppercase;
+}
+```
+
 ## 4. Формы и доступность
 
 ### 4.1 Label для всех input
@@ -243,13 +298,13 @@
 - Клик по label активирует input (увеличивает область клика)
 - Семантика (понятно что вводить)
 
-**Плохо:**
+**❌ Плохо:**
 
 ```html
 <input type="text" placeholder="Email" /> <input type="password" placeholder="Password" />
 ```
 
-**Хорошо:**
+**✅ Хорошо:**
 
 ```html
 <label for="email">Email:</label>
@@ -261,7 +316,7 @@
 
 ### 4.2 Атрибут `type` для кнопок
 
-**Плохо:**
+**❌ Плохо:**
 
 ```html
 <!-- По умолчанию type="submit" в форме! -->
@@ -271,7 +326,7 @@
 </form>
 ```
 
-**Хорошо:**
+**✅ Хорошо:**
 
 ```html
 <form>
@@ -307,14 +362,14 @@
 
 ### 5.2 Фокус и keyboard navigation
 
-**Плохо:**
+**❌ Плохо:**
 
 ```html
 <!-- div не focusable! -->
 <div onclick="handleClick()">Click me</div>
 ```
 
-**Хорошо:**
+**✅ Хорошо:**
 
 ```html
 <!-- button focusable по умолчанию -->
@@ -333,7 +388,9 @@
 - [ ] Все `<img>` имеют атрибут `alt`
 - [ ] Для изображений указаны `width` и `height`
 - [ ] Классы именуются в kebab-case
+- [ ] Uppercase текст реализован через CSS `text-transform`, не в HTML
 - [ ] Нет избыточных `<div>` (можно упростить?)
+- [ ] Нет inline стилей и inline JavaScript (onclick)
 - [ ] Все `<input>` имеют связанные `<label>`
 - [ ] Кнопки имеют корректный `type` (button/submit)
 - [ ] Интерактивные элементы focusable (button, a, input)

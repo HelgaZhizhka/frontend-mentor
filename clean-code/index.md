@@ -177,12 +177,15 @@
 
 ### [Часть 6: Дополнительные практики](Clean-Code-Fundamentals-Part6.md)
 
-Остальные рекомендации и антипаттерны.
+Остальные рекомендации и антипаттерны для JavaScript разработки.
 
 #### Разделы:
 
 - [**1. Стрелочные функции для методов**](Clean-Code-Fundamentals-Part6.md#1-стрелочные-функции-для-методов)
 - [**2. Осторожно с setTimeout и setInterval**](Clean-Code-Fundamentals-Part6.md#2-осторожно-с-settimeout-и-setinterval)
+- [**3. Event Delegation**](Clean-Code-Fundamentals-Part6.md#3-event-delegation)
+- [**4. Обязательные скобки для if/else/for**](Clean-Code-Fundamentals-Part6.md#4-обязательные-скобки-для-ifelsefor)
+- [**5. Размер файлов (200-400 строк)**](Clean-Code-Fundamentals-Part6.md#5-размер-файлов-200-400-строк)
 
 ### [React Best Practices](React.md)
 
@@ -236,10 +239,14 @@
   - [2.1 Почему `alt` обязателен?](HTML.md#21-почему-alt-обязателен)
   - [2.2 Правила написания `alt`](HTML.md#22-правила-написания-alt)
   - [2.3 Размеры изображений (width и height)](HTML.md#23-размеры-изображений-width-и-height)
-- [**3. Избегание избыточных `<div>`**](HTML.md#3-избегание-избыточных-div)
-- [**4. Именование классов (kebab-case)**](HTML.md#4-именование-классов-kebab-case)
-- [**5. Формы и доступность**](HTML.md#5-формы-и-доступность)
-- [**6. Доступность (a11y)**](HTML.md#6-доступность-a11y)
+- [**3. Именование классов (kebab-case)**](HTML.md#3-именование-классов-kebab-case)
+  - [3.1 Почему kebab-case?](HTML.md#31-почему-kebab-case)
+  - [3.2 BEM (рекомендуется)](HTML.md#32-bem-рекомендуется)
+  - [3.3 Uppercase текст через CSS, не HTML](HTML.md#33-uppercase-текст-через-css-не-html)
+- [**4. Формы и доступность**](HTML.md#4-формы-и-доступность)
+- [**5. Доступность (a11y)**](HTML.md#5-доступность-a11y)
+- [**6. Практические советы**](HTML.md#6-практические-советы)
+  - [6.1 Checklist для HTML review](HTML.md#61-checklist-для-html-review)
 
 ### [CSS Best Practices](CSS.md)
 
