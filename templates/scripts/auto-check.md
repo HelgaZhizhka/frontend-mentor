@@ -29,6 +29,9 @@ chmod +x auto-check.sh
 2. Статистика TypeScript:
    - Подсчёт interfaces/types (количество)
    - Подсчёт generics (количество)
+     * Generic types: считаются только объявления новых generic типов (например: `type Callback<T>`, `interface Container<T>`)
+     * Generic functions: считаются методы и функции с generic параметрами (например: `getSources<T>()`, `getResp<T>()`)
+     * **Важно:** Использование generic типов (например: `Callback<void>`, `Promise<string>`) не считается - только их объявление!
    - Подсчёт enums (количество)
    - Подсчёт classes (количество)
    - Проверка access modifiers (private, public, protected)
@@ -67,6 +70,9 @@ chmod +x auto-check.sh
 
 - **TypeScript Features:**
   - Использовать подсчёт interfaces/generics/enums/classes как ориентир
+  - **Важно для Generics:**
+    * Скрипт показывает 1 generic type? Это нормально, если создан свой generic тип (например `Callback<T>`) и активно используется
+    * Generic functions: проверьте что методы с `<T>` применяются осмысленно, а не формально
   - Проверить **качество и осмысленность** (не только количество!)
   - Оценить архитектуру и типизацию
   - Проверить правильность использования access modifiers

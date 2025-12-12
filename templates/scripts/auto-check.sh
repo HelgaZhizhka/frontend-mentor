@@ -143,8 +143,8 @@ if [ -d "src" ]; then
   INTERFACE_COUNT=$(grep -r "^interface \|^export interface " src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l | tr -d ' ')
   TYPE_COUNT=$(grep -r "^type \|^export type " src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l | tr -d ' ')
   ENUM_COUNT=$(grep -r "^enum \|^export enum " src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l | tr -d ' ')
-  GENERIC_FUNCTION_COUNT=$(grep -r "function.*<[A-Z]" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l | tr -d ' ')
-  GENERIC_TYPE_COUNT=$(grep -r "^type.*<[A-Z]\|^interface.*<[A-Z]" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l | tr -d ' ')
+  GENERIC_FUNCTION_COUNT=$(grep -rE "(function|public|private|protected|static).*<[A-Z][^>]*>.*\(" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l | tr -d ' ')
+  GENERIC_TYPE_COUNT=$(grep -rE "(^type|^export type|^interface|^export interface).*<[A-Z]" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l | tr -d ' ')
   CLASS_COUNT=$(grep -r "^class \|^export class " src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l | tr -d ' ')
 
   PRIVATE_COUNT=$(grep -r "private " src/ --include="*.ts" --include="*.tsx" 2>/dev/null | wc -l | tr -d ' ')
