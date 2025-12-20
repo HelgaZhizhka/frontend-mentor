@@ -25,9 +25,9 @@ export default tseslint.config(
       js.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
-      eslintPluginPrettier,
       unicorn.configs.recommended,
       jsxA11y.flatConfigs.recommended,
+      eslintPluginPrettier,
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -139,7 +139,7 @@ export default tseslint.config(
       // Use Record instead of object/{}
       '@typescript-eslint/consistent-indexed-object-style': ['error', 'record'],
 
-      // Prefer type over interface 
+      // Prefer type over interface
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
 
       // ==============================================
@@ -247,7 +247,6 @@ export default tseslint.config(
 
       // Error handling
       'no-throw-literal': 'off',
-      '@typescript-eslint/no-throw-literal': 'error',
       '@typescript-eslint/only-throw-error': 'error',
 
       // ==============================================
@@ -324,17 +323,9 @@ export default tseslint.config(
       'import/order': [
         'error',
         {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-            'type',
-          ],
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'type'],
           'newlines-between': 'always',
-          alphabetize: { order: 'asc', caseInsensitive: true }
+          alphabetize: { order: 'asc', caseInsensitive: true },
         },
       ],
 
@@ -368,8 +359,8 @@ export default tseslint.config(
         'error',
         {
           cases: {
-            kebabCase: true,   // Allow kebab-case (utils, hooks, etc.)
-            pascalCase: true,  // Allow PascalCase (React components)
+            kebabCase: true, // Allow kebab-case (utils, hooks, etc.)
+            pascalCase: true, // Allow PascalCase (React components)
           },
         },
       ],
