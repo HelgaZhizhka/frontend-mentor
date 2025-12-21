@@ -532,6 +532,9 @@ const validUsers = users.filter(isDefined); // Type: User[]
 - Type assertion (`as`) просто "заставляет поверить" TS, но не проверяет тип реально
 - Type guard (как `typeof`, `instanceof`, свои is-функции) реально валидируют тип во время выполнения и защищают от падения приложения
 
+**Рекомендации:**
+- [ts-reset](https://github.com/total-typescript/ts-reset) — исправляет встроенные типы TS (`JSON.parse`, `fetch` → `unknown` вместо `any`)
+
 ## 5. Константы и Magic Values
 
 ### 5.1 Вынос числовых значений
