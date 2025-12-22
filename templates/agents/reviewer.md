@@ -29,23 +29,29 @@
 - Вложенность (max 3 уровня)
 - Magic numbers
 - `any` тип запрещён
-- Промисы обрабатываются (no-floating-promises)
 - Неиспользуемые переменные
 - console.log
 - Порядок импортов
+
 **Если ESLint НЕ настроен или есть ошибки** — это критическая проблема, указать первым делом.
 
 ---
 
-## ДОПОЛНИТЕЛЬНАЯ ПРОВЕРКА
+## ТРЕБОВАНИЯ К ПРОВЕРКЕ
 
-Это разделы, которые нужно проверить, потому что ESLint их может не покрывать. 
+### 1. Git и оформление
 
-### 1. Базовые требования (проверить первым делом)
+**Коммиты (Conventional Commits):**
+
+- Формат: `type: description` (feat, fix, refactor, docs, style, test, chore)
+- Описание в imperative mood ("add feature", не "added feature")
+- Коммиты логически разделены (не один гигантский коммит)
+
+### 2. Базовые требования (проверить первым делом)
 
 **Конфигурация:**
 
-- ESLint настроен? `npm run lint` проходит?
+- ESLint настроен? `npm run lint` проходит без ошибок?
 - `npm run build` проходит без ошибок?
 - TypeScript: `"strict": true` и `"noImplicitAny": true`?
 
@@ -54,7 +60,7 @@
 - Закомментированного кода
 - Лишних файлов (node_modules, .env, dist)
 
-### 2. Смысл именования (ESLint проверяет формат, не смысл)
+### 3. Смысл именования
 
 - Имя отражает суть? (`data` → `users`, `temp` → `cachedResult`)
 - Функции — глаголы действия? (`process` → `calculateTotal`)
@@ -70,7 +76,7 @@ const currentDate = new Date();
 const userResponse = getData();
 ```
 
-### 3. Архитектура и ответственность
+### 4. Архитектура и ответственность
 
 - **Single Responsibility**: класс/функция делает одно дело?
 - **Разделение**: логика отдельно от UI? API отдельно от компонентов?
@@ -96,32 +102,25 @@ const onboardNewUser = (user: User): void => {
 };
 ```
 
-### 4. Комментарии и документация
+### 5. Комментарии и документация
 
 - Есть ли закомментированный код?
 - Комментарии объясняют "почему", а не "что"?
 - TODO/FIXME актуальны?
 
-### 5. Асинхронность (то, что ESLint не видит)
+### 6. Асинхронность
 
 - useEffect cleanup: AbortController для fetch?
 - Параллельные запросы через Promise.all где возможно?
 - Race conditions при быстрых переключениях?
 
-### 6.  Производительность и оптимизация
+### 7. Производительность и оптимизация
 
 - Event Delegation: используются делегирование событий вместо множественных обработчиков?
 - Debounce/Throttle: Для input, scroll, resize событий (если используются)
 
-### 7. Git и оформление
 
-**Коммиты (Conventional Commits):**
-
-- Формат: `type: description` (feat, fix, refactor, docs, style, test, chore)
-- Описание в imperative mood ("add feature", не "added feature")
-- Коммиты логически разделены (не один гигантский коммит)
-
-### 8. TypeScript (то, что ESLint не проверяет)
+### 8. TypeScript
 
 - Type guards вместо assertions: `typeof`, `instanceof` вместо `as`?
 - Generics где применимо?
@@ -154,7 +153,7 @@ const isUser = (obj: unknown): obj is User => {
 
 **То же касается:** `localStorage.getItem()`, `JSON.parse()`, данные из форм, query параметров.
 
-### 9. HTML/CSS (если есть)
+### 9. HTML/CSS 
 
 - Семантические теги (header, main, nav, article, section)
 - alt для изображений (осмысленный, не "image")
@@ -164,11 +163,8 @@ const isUser = (obj: unknown): obj is User => {
 
 ---
 
-## СПРАВОЧНЫЕ МАТЕРИАЛЫ
+*А также используй эти материалы для углублённого изучения проблем, найденных в коде студента.*
 
-*Используй эти материалы для углублённого изучения проблем, найденных в коде студента.*
-
-**Основные разделы:**
 - [Общие практики](https://github.com/HelgaZhizhka/mentor-resources/blob/master/clean-code/Clean-Code-Fundamental-Part1.md)
 - [Рефакторинг и организация кода](https://github.com/HelgaZhizhka/mentor-resources/blob/master/clean-code/Clean-Code-Fundamental-Part2.md)
 - [Работа с данными](https://github.com/HelgaZhizhka/mentor-resources/blob/master/clean-code/Clean-Code-Fundamental-Part3.md)
